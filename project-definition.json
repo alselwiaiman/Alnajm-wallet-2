@@ -1,0 +1,26 @@
+{
+  "name": "flutter_wallet_demo",
+  "purpose": "Portfolio demo of a digital wallet",
+  "real_money": false,
+  "backend": "mock",
+  "platform": [
+    "android",
+    "ios",
+    "web"
+  ],
+  "languages": [
+    "ar",
+    "en"
+  ],
+  "direction_support": [
+    "rtl",
+    "ltr"
+  ],
+  "architecture": "layered-feature-based",
+  "production_finance": false,
+  "required_checks": [
+    "dart format .",
+    "flutter analyze",
+    "flutter test"
+  ]
+}
