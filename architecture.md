@@ -1,58 +1,109 @@
-# Architecture
+# ARCHITECTURE
 
-## الهدف
-Architecture بسيطة وقابلة للتوسع لـ Flutter Wallet Demo.
+## High-level
 
-## الطبقات
+Flutter
+  ↓
+PHP REST API
+  ↓
+Supabase/PostgreSQL
 
-lib/
-  core/
-    constants/
-    errors/
-    routing/
-    theme/
-    localization/
-    utils/
-  features/
-    auth/
-      data/
-      domain/
-      presentation/
-    wallet/
-      data/
-      domain/
-      presentation/
-    transactions/
-      data/
-      domain/
-      presentation/
-    profile/
-      data/
-      domain/
-      presentation/
-  shared/
-    widgets/
-    models/
+Supabase services may provide:
 
-## قاعدة dependency
-Presentation -> Domain -> Data abstractions
+- Auth
+- Storage
+- Realtime
+- PostgreSQL
+- Edge Functions where justified
 
-لا تجعل Presentation تعتمد مباشرة على implementation خاص بمصدر البيانات.
+## Financial authority
 
-## Repository
-مثال:
-- WalletRepository
-- TransactionRepository
-- AuthRepository
+The authoritative financial model must live server-side and in the database/ledger architecture.
 
-الـ Demo يستخدم Mock implementations.
-لاحقاً يمكن إضافة Remote API implementation دون إعادة بناء الواجهة.
+Flutter is a client, not the accounting system.
 
-## State
-استخدم state management واحداً متسقاً مع المشروع. إذا لم يتم اختيار package، ابدأ بحل Flutter بسيط أو pattern خفيف ولا تضف package لمجرد الإضافة.
+## Repository concept
 
-## Routing
-كل شاشة لها route واضح. تعامل مع unauthorized state وunknown routes.
+```text
+wallet-platform/
+├── mobile/
+├── backend/
+├── supabase/
+├── packages/
+├── docs/
+├── assets/
+├── al-najm-demo/
+└── commercial/
+```
 
-## Data
-Mock data يجب أن تكون في data layer وليست موزعة داخل Widgets.
+Do not duplicate the entire codebase for each customer/package.
+
+## Suggested Flutter modules
+
+- core
+- config
+- theme
+- localization
+- routing
+- network
+- security
+- auth
+- home
+- wallet
+- transactions
+- transfers
+- beneficiaries
+- exchange
+- payments
+- qr
+- notifications
+- kyc
+- profile
+- support
+
+## Suggested PHP modules
+
+- Auth
+- Users
+- Wallets
+- Ledger
+- Transactions
+- Transfers
+- Exchange
+- Beneficiaries
+- Payments
+- KYC
+- Notifications
+- Security
+- Support
+- Admin
+- Audit
+
+## White-label
+
+Company configuration controls:
+
+- name
+- legal name
+- logo
+- colors
+- typography
+- app icon
+- splash
+- currencies
+- enabled features
+- support contact
+- legal links
+
+## Commercial model
+
+Core:
+open source
+
+Customer layer:
+branding/configuration
+
+Commercial:
+advanced modules, integrations, deployment, customization and enterprise capabilities
+
+Never place secrets or customer data in the public core.
