@@ -21,19 +21,11 @@ jobs:
           java-version: '17'
 
       - name: Set up Flutter
-        id: flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.24.3'
           channel: 'stable'
           cache: true
-
-      - name: Create local.properties
-        working-directory: ./05_AL_NAJM_DEMO/android
-        run: |
-          echo "flutter.sdk=$FLUTTER_ROOT" > local.properties
-          echo "sdk.dir=$ANDROID_SDK_ROOT" >> local.properties
-          cat local.properties
 
       - name: Get Dependencies
         working-directory: ./05_AL_NAJM_DEMO
@@ -41,7 +33,7 @@ jobs:
 
       - name: Build APK (Release)
         working-directory: ./05_AL_NAJM_DEMO
-        run: flutter build apk --release --no-shrink
+        run: flutter build apk --release
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
