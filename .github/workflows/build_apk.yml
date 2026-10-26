@@ -1,0 +1,42 @@
+name: Build Flutter APK
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Al-Najm Demo APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.3'
+          channel: 'stable'
+          cache: true
+
+      - name: Get Dependencies
+        working-directory: ./05_AL_NAJM_DEMO
+        run: flutter pub get
+
+      - name: Build APK (Release)
+        working-directory: ./05_AL_NAJM_DEMO
+        run: flutter build apk --release
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AlNajm-Wallet-Release-APK
+          path: 05_AL_NAJM_DEMO/build/app/outputs/flutter-apk/app-release.apk
