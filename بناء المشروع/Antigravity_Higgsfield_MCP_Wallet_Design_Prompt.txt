@@ -1,0 +1,515 @@
+You are working on the existing Flutter Wallet project.
+
+IMPORTANT:
+Do NOT recreate the project.
+Do NOT replace the existing architecture.
+Do NOT remove existing functionality.
+Do NOT create a separate demo project.
+
+Your task is to significantly improve the visual design and user experience of the existing wallet application.
+
+==================================================
+HIGGSFIELD MCP — REQUIRED
+==================================================
+
+First, inspect the currently available MCP servers and tools.
+
+If a Higgsfield MCP server is connected and available:
+- Use it directly.
+- Inspect its available image/design generation capabilities.
+- Use the appropriate Higgsfield MCP tools for visual design generation.
+- Do NOT pretend that an image was generated if the MCP tool did not actually generate it.
+
+If Higgsfield MCP is not connected:
+- Do NOT invent an MCP tool or API.
+- Continue by preparing the design system and integration structure.
+- Clearly report that Higgsfield MCP is not currently available and specify exactly what assets would be generated once it is connected.
+
+==================================================
+DESIGN OBJECTIVE
+==================================================
+
+Transform the current wallet application into a premium, modern, distinctive fintech product.
+
+The design must NOT look like:
+- a generic Flutter template
+- a basic Material demo
+- a copied banking application
+- a standard admin dashboard
+- a collection of default Flutter widgets
+
+The application should have its own recognizable visual identity.
+
+Think:
+Premium FinTech + Modern Digital Wallet + Subtle Futuristic Technology.
+
+The interface must feel:
+- trustworthy
+- elegant
+- modern
+- fast
+- clean
+- premium
+- technologically advanced
+- professional enough for a real financial company
+
+Avoid excessive visual effects.
+
+==================================================
+DESIGN SYSTEM
+==================================================
+
+Before implementing individual screens, establish a complete visual design system.
+
+Create:
+
+1. Color system
+2. Typography system
+3. Spacing system
+4. Border radius system
+5. Elevation/shadow system
+6. Card system
+7. Button system
+8. Input system
+9. Navigation system
+10. Iconography system
+11. Illustration style
+12. Animation principles
+
+The design system must support:
+
+- Light mode
+- Dark mode
+- Arabic
+- English
+- RTL
+- LTR
+
+Do not create separate unrelated designs for every screen.
+
+Everything must feel like one coherent product.
+
+==================================================
+HIGGSFIELD VISUAL ASSETS
+==================================================
+
+Use Higgsfield MCP where appropriate to create original visual assets.
+
+Generate assets for:
+
+- Wallet branding
+- Dashboard visual elements
+- Wallet/balance illustration
+- Send money illustration
+- Receive money illustration
+- Deposit illustration
+- Withdraw illustration
+- Transaction empty-state illustration
+- Success illustration
+- Error illustration
+- Security illustration
+- Profile illustration
+- Onboarding illustrations if appropriate
+- Premium decorative backgrounds
+- Subtle fintech abstract graphics
+
+Also create a consistent custom icon/illustration language.
+
+IMPORTANT:
+
+Do not generate random unrelated images.
+
+All generated assets must share:
+- the same visual language
+- consistent perspective
+- consistent lighting
+- consistent geometry
+- consistent level of detail
+- consistent colors
+- consistent brand identity
+
+==================================================
+ICON DESIGN
+==================================================
+
+The application should use a coherent icon system.
+
+Where custom icons are needed, create a consistent custom style for:
+
+- Home
+- Wallet
+- Send
+- Receive
+- Deposit
+- Withdraw
+- Transactions
+- Search
+- Filter
+- Profile
+- Settings
+- Security
+- Notifications
+- QR
+- Cards
+- Currency
+- Support
+- Logout
+- Success
+- Error
+- Information
+
+Do not make every icon visually different.
+
+The icon family must look like it belongs to the same product.
+
+Use vector/SVG assets whenever practical.
+
+Do not use huge raster images where an SVG/icon would be more appropriate.
+
+==================================================
+DASHBOARD
+==================================================
+
+Redesign the dashboard completely.
+
+It should include:
+
+- Elegant wallet balance card
+- Available balance
+- Currency
+- Balance visibility toggle
+- Quick actions
+- Recent transactions
+- Transaction summary
+- User profile
+- Notifications
+- Security status where appropriate
+
+The main balance card should become a recognizable visual element of the application.
+
+Avoid making it look like a simple rectangular Card widget.
+
+Use visual hierarchy and subtle depth.
+
+==================================================
+WALLET OPERATIONS
+==================================================
+
+Redesign:
+
+- Send Money
+- Receive Money
+- Deposit
+- Withdraw
+
+Each operation should have:
+
+- clear purpose
+- strong visual hierarchy
+- amount input
+- currency
+- recipient/sender information where applicable
+- validation
+- confirmation
+- success state
+- error state
+
+Use appropriate generated visual assets without overwhelming the user.
+
+==================================================
+TRANSACTION EXPERIENCE
+==================================================
+
+Redesign transaction history.
+
+Include:
+
+- transaction icons
+- transaction type
+- merchant/person
+- date
+- amount
+- status
+- incoming/outgoing visual distinction
+- search
+- filters
+- transaction details
+
+Create a polished empty state using a custom visual generated through Higgsfield when appropriate.
+
+==================================================
+PROFILE & SETTINGS
+==================================================
+
+Create a premium profile experience.
+
+Include:
+
+- profile information
+- account information
+- security
+- language
+- theme
+- notifications
+- privacy
+- logout
+
+Use consistent visual components.
+
+==================================================
+MOBILE-FIRST
+==================================================
+
+The application is primarily a mobile wallet.
+
+Design mobile screens first.
+
+Then ensure they scale correctly for:
+
+- phones
+- tablets
+- desktop
+- web-sized windows
+
+Do not simply stretch mobile UI onto large screens.
+
+==================================================
+ARABIC EXPERIENCE
+==================================================
+
+Arabic is a first-class experience.
+
+Do NOT simply translate the English UI.
+
+Design specifically for RTL.
+
+Check:
+
+- navigation direction
+- icon placement
+- text alignment
+- amount placement
+- cards
+- transaction rows
+- forms
+- buttons
+- spacing
+- typography
+
+Arabic typography must be clean and professional.
+
+English must work equally well in LTR.
+
+==================================================
+ANIMATION
+==================================================
+
+Add subtle premium animations where useful.
+
+Examples:
+
+- balance card entrance
+- page transitions
+- button feedback
+- transaction success
+- loading states
+- balance visibility transition
+- navigation transitions
+- bottom sheet transitions
+
+Animations must be:
+- smooth
+- short
+- purposeful
+
+Do NOT add animations everywhere.
+
+==================================================
+UX
+==================================================
+
+Improve the UX, not just the appearance.
+
+Every screen must have:
+
+- loading state
+- empty state where applicable
+- error state where applicable
+- success state where applicable
+- disabled state
+- validation feedback
+
+The user should always understand what is happening.
+
+==================================================
+IMPLEMENTATION RULES
+==================================================
+
+Use the existing project architecture.
+
+Respect:
+
+- existing core/
+- existing features/
+- existing shared/
+- existing routing
+- existing theme
+- existing localization
+- existing error handling
+
+Do not create duplicate systems.
+
+If an existing component can be improved, improve it rather than creating an unnecessary duplicate.
+
+Keep business logic separate from UI.
+
+Keep generated assets organized.
+
+Suggested structure:
+
+assets/
+  branding/
+  icons/
+  illustrations/
+  backgrounds/
+  animations/
+
+If the current project already has an asset structure, adapt to it instead of creating a conflicting structure.
+
+==================================================
+HIGGSFIELD MCP WORKFLOW
+==================================================
+
+For every visual asset:
+
+1. Determine whether it is actually needed.
+2. Create a detailed generation prompt.
+3. Use Higgsfield MCP.
+4. Inspect the generated result.
+5. Reject assets that don't match the design system.
+6. Regenerate when necessary.
+7. Save the final asset in the project.
+8. Optimize the asset for Flutter.
+9. Integrate it into the correct screen.
+
+Do not generate hundreds of unnecessary assets.
+
+Prefer a small number of high-quality reusable visual assets.
+
+==================================================
+BRAND CONSISTENCY
+==================================================
+
+Create a visual identity that can later be reused for:
+
+- mobile application
+- web application
+- desktop application
+- company website
+- marketing materials
+
+The wallet should have a recognizable design language.
+
+==================================================
+ACCESSIBILITY
+==================================================
+
+Make the UI accessible.
+
+Check:
+
+- text contrast
+- touch target sizes
+- readable typography
+- scalable text
+- meaningful icons
+- semantic labels
+- keyboard navigation where relevant
+
+Do not sacrifice usability for visual effects.
+
+==================================================
+PERFORMANCE
+==================================================
+
+Do not sacrifice Flutter performance for visual design.
+
+Optimize:
+
+- image sizes
+- SVGs
+- animations
+- shadows
+- blur effects
+- large backgrounds
+
+Avoid unnecessarily expensive effects.
+
+==================================================
+VERIFICATION
+==================================================
+
+After implementing the redesign:
+
+1. Run flutter analyze.
+2. Fix all errors.
+3. Fix warnings where practical.
+4. Run tests.
+5. Build the application.
+6. Verify every route.
+7. Verify Arabic RTL.
+8. Verify English LTR.
+9. Verify light mode.
+10. Verify dark mode.
+11. Verify all wallet operations.
+12. Verify transaction history.
+13. Verify profile/settings.
+14. Verify generated assets load correctly.
+15. Verify assets work offline where possible.
+16. Check responsiveness.
+17. Check accessibility.
+18. Check performance.
+
+==================================================
+FINAL INSPECTION
+==================================================
+
+Run the existing Project Inspection Report again.
+
+The redesign must NOT break any previously implemented functionality.
+
+The final application should have:
+
+- Fully implemented wallet features
+- Premium visual identity
+- Custom visual assets
+- Consistent iconography
+- Modern dashboard
+- Premium wallet card
+- Professional transaction experience
+- Excellent Arabic RTL experience
+- Excellent English LTR experience
+- Light/Dark themes
+- Responsive UI
+- Smooth animations
+- Proper loading/empty/error/success states
+- Clean Flutter architecture
+
+At the end, provide a concise report:
+
+1. Higgsfield MCP availability
+2. MCP tools actually used
+3. Assets generated
+4. Assets integrated
+5. Screens redesigned
+6. Components created/modified
+7. Design system created
+8. Flutter analyze result
+9. Tests result
+10. Build result
+11. Remaining issues
+
+IMPORTANT:
+Do not stop at design recommendations.
+
+Actually implement the design in the existing Flutter project.

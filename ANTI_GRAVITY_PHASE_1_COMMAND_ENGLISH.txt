@@ -1,0 +1,156 @@
+ANTI-GRAVITY - PHASE 1 EXECUTION COMMAND
+Flutter Wallet Demo - Project Setup & Core Foundation
+
+START NOW: Phase 1 - Project Setup & Core Foundation.
+
+Follow all project instruction files that you already read, especially:
+
+- antigravity/PROJECT_RULES.md
+- antigravity/WORKFLOW.md
+- docs/architecture.md
+- docs/ui-guidelines.md
+- config/quality-gates.md
+- prompts/02-build-phase.md
+
+==================================================
+1. PROJECT FOUNDATION
+==================================================
+
+1. Prepare or update pubspec.yaml using only dependencies that are actually necessary.
+
+2. Create the project structure inside lib/:
+
+lib/
+  core/
+  features/
+  shared/
+
+Create the required subfolders according to the approved project architecture.
+
+3. Create a Material 3 theme system with:
+
+- Light Theme
+- Dark Theme
+
+The theme structure must be clean and easy to extend later.
+
+4. Create localization for:
+
+- Arabic (ar)
+- English (en)
+
+5. Automatically use the correct text direction:
+
+- Arabic = RTL
+- English = LTR
+
+6. Create a clean and scalable routing system.
+
+7. Create the root application shell required for future development.
+
+==================================================
+2. IMPORTANT SCOPE LIMIT
+==================================================
+
+This phase is ONLY for the project foundation.
+
+DO NOT implement these features yet:
+
+- Authentication
+- Wallet
+- Balance
+- Send
+- Receive
+- Deposit
+- Withdraw
+- Transactions
+- Backend
+- Payment gateway
+- Real financial operations
+
+Do not start Phase 2.
+
+Wait for a separate instruction before moving to Phase 2.
+
+==================================================
+3. CODE QUALITY RULES
+==================================================
+
+- Do not add unnecessary dependencies.
+- Do not rewrite the entire project.
+- Do not delete existing code unless there is a clear reason.
+- Do not make a major architecture change if the current architecture is already valid.
+- If there is an architecture conflict, choose the smallest safe change.
+- Keep business logic outside UI widgets.
+- Keep the code null-safe and maintainable.
+- Do not use real financial data.
+- Do not use API keys, passwords, tokens, or secrets.
+- Do not hardcode production credentials.
+
+==================================================
+4. RESPONSIVE AND LOCALIZATION REQUIREMENTS
+==================================================
+
+The foundation must support:
+
+- Arabic
+- English
+- RTL
+- LTR
+- Light mode
+- Dark mode
+- Responsive layouts
+
+Do not hardcode user-facing text directly inside widgets when it should be localized.
+
+==================================================
+5. VALIDATION
+==================================================
+
+After implementation, run these commands:
+
+dart format .
+
+flutter analyze
+
+flutter test
+
+If any command fails:
+
+1. Identify the root cause.
+2. Fix the problem.
+3. Run the command again.
+4. Do not hide errors with unnecessary analyzer ignores.
+
+Do not report the task as complete while critical errors remain.
+
+==================================================
+6. FINAL REPORT
+==================================================
+
+After completing Phase 1, provide a clear report containing:
+
+1. Files created.
+2. Files modified.
+3. Dependencies added and the reason for each dependency.
+4. Final project architecture.
+5. Whether Arabic RTL works.
+6. Whether English LTR works.
+7. Whether Light Theme works.
+8. Whether Dark Theme works.
+9. Whether routing works.
+10. Result of dart format .
+11. Result of flutter analyze.
+12. Result of flutter test.
+13. Remaining problems, if any.
+14. Important technical decisions.
+
+==================================================
+7. STOP AFTER PHASE 1
+==================================================
+
+Do NOT continue to Phase 2 automatically.
+
+After the report, stop and wait for my next instruction.
+
+START PHASE 1 NOW.

@@ -1,0 +1,415 @@
+ANTI-GRAVITY — READ PROJECT INSTRUCTIONS FIRST
+Flutter Wallet Demo
+
+IMPORTANT:
+Do not modify or generate project code until you have completed the inspection described below.
+
+==================================================
+1. FIND AND READ THE PROJECT INSTRUCTION FILES
+==================================================
+
+Search the current Flutter project for these files:
+
+antigravity/PROJECT_RULES.md
+antigravity/WORKFLOW.md
+
+docs/architecture.md
+docs/features.md
+docs/security.md
+docs/ui-guidelines.md
+docs/demo-data.md
+docs/testing.md
+
+config/quality-gates.md
+config/project-definition.json
+
+prompts/01-master-prompt.md
+prompts/02-build-phase.md
+prompts/03-ui-polish.md
+prompts/04-review.md
+prompts/05-bug-fix.md
+prompts/06-no-go-list.md
+prompts/07-git-commits.md
+
+Read every file that actually exists.
+
+DO NOT assume the contents of a file from its filename.
+If a file is missing, report it.
+
+==================================================
+2. THESE FILES ARE THE PROJECT REFERENCE
+==================================================
+
+After reading them, treat the project instruction files as the primary
+development rules for this project.
+
+Follow them whenever you inspect, modify, create, refactor, test,
+or review project code.
+
+Do not silently override them.
+
+==================================================
+3. INSPECT THE CURRENT PROJECT
+==================================================
+
+After reading the instructions:
+
+1. Inspect the current Flutter project structure.
+2. Identify the existing architecture.
+3. Identify the current features.
+4. Identify the current dependencies.
+5. Identify incomplete or broken areas.
+6. Compare the current project with the instruction files.
+7. Find missing files or missing features.
+8. Identify security problems.
+9. Identify UI/UX problems.
+10. Identify testing gaps.
+
+Do not rewrite the entire project.
+
+Do not make large architectural changes unless there is a clear reason.
+
+==================================================
+4. PROJECT PURPOSE
+==================================================
+
+This is a Flutter Wallet Demo / Portfolio project.
+
+The project is DEMO ONLY.
+
+It must NOT process real money.
+
+It must NOT connect to real banks.
+
+It must NOT contain real payment credentials.
+
+It must NOT contain real credit/debit card data.
+
+It must NOT contain production API secrets.
+
+Use Mock/Demo repositories and demo data.
+
+The architecture should allow a future backend/API implementation
+without rebuilding the entire UI.
+
+==================================================
+5. REQUIRED DEVELOPMENT PRINCIPLES
+==================================================
+
+Use:
+
+- Flutter
+- Dart
+- Null safety
+- Clean and understandable code
+- Feature-based organization
+- Separation between UI and business logic
+- Repository abstractions
+- Reusable widgets
+- Localization
+- Arabic and English
+- RTL and LTR
+- Responsive layouts
+- Loading states
+- Empty states
+- Error states
+- Success states
+- Proper validation
+- Proper error handling
+
+Avoid unnecessary complexity.
+
+Do not add packages simply because they are popular.
+
+Before adding a dependency, determine whether Flutter/Dart can solve
+the requirement without it.
+
+==================================================
+6. SECURITY RULES
+==================================================
+
+NEVER put these inside source code:
+
+- API keys
+- Private keys
+- Passwords
+- Tokens
+- Database credentials
+- Payment credentials
+- Production secrets
+
+NEVER:
+
+- Disable SSL verification.
+- Store real financial credentials.
+- Store real card CVV.
+- Treat client-side validation as sufficient for financial operations.
+- Pretend demo balance is real money.
+- Connect directly to a real financial provider from the Flutter UI.
+
+If a real backend is introduced in the future, it must handle:
+
+- Authentication
+- Authorization
+- Server-side validation
+- Secure API communication
+- Audit logging
+- Rate limiting where appropriate
+- Secure secret management
+
+==================================================
+7. UI/UX RULES
+==================================================
+
+The wallet should look professional and suitable for a developer
+Portfolio.
+
+Use a modern Flutter/Material 3 design.
+
+Maintain:
+
+- Clear visual hierarchy
+- Consistent spacing
+- Consistent typography
+- Clear buttons
+- Responsive layouts
+- Accessible touch targets
+- Good contrast
+- Useful empty states
+- Useful error messages
+- Useful loading indicators
+
+Support:
+
+Arabic:
+RTL
+
+English:
+LTR
+
+Do not assume that every icon should be mirrored.
+
+Test small and large phone layouts.
+
+Avoid excessive animations.
+
+Animations should improve usability rather than exist only for decoration.
+
+==================================================
+8. DEMO FEATURES
+==================================================
+
+The intended Demo can contain:
+
+- Demo Login
+- Dashboard
+- Wallet Balance
+- Send Demo Money
+- Receive Demo Money
+- Deposit Demo
+- Withdraw Demo
+- Transaction History
+- Transaction Details
+- Search Transactions
+- Transaction Filtering
+- Profile
+- Settings
+- Dark Mode
+- Light Mode
+- Arabic
+- English
+- RTL
+- LTR
+- Loading states
+- Empty states
+- Error states
+- Success states
+
+All financial actions are MOCK actions.
+
+==================================================
+9. ARCHITECTURE RULE
+==================================================
+
+Keep business logic out of UI widgets.
+
+Do not put API/repository calls directly into presentation widgets.
+
+Prefer a structure similar to:
+
+lib/
+  core/
+    constants/
+    errors/
+    routing/
+    theme/
+    localization/
+    utils/
+
+  features/
+    auth/
+      data/
+      domain/
+      presentation/
+
+    wallet/
+      data/
+      domain/
+      presentation/
+
+    transactions/
+      data/
+      domain/
+      presentation/
+
+    profile/
+      data/
+      domain/
+      presentation/
+
+  shared/
+    widgets/
+    models/
+
+The exact structure may differ if the existing project already has
+a good architecture.
+
+Do not change a working architecture just to match this structure
+exactly.
+
+==================================================
+10. BEFORE EVERY DEVELOPMENT TASK
+==================================================
+
+Before changing code:
+
+1. Inspect relevant files.
+2. Understand the existing implementation.
+3. Find reusable code.
+4. Determine the smallest safe change.
+5. Identify affected files.
+6. Identify tests that need updating or creation.
+
+Do not immediately rewrite files.
+
+==================================================
+11. AFTER EVERY DEVELOPMENT TASK
+==================================================
+
+Run:
+
+dart format .
+
+Then:
+
+flutter analyze
+
+Then:
+
+flutter test
+
+Fix errors instead of hiding them.
+
+Do not use analyzer ignores unless there is a real and documented reason.
+
+Do not leave critical errors unresolved.
+
+==================================================
+12. WHEN SOMETHING IS BROKEN
+==================================================
+
+Do not randomly modify multiple files.
+
+First:
+
+1. Identify the root cause.
+2. Identify the affected files.
+3. Explain the cause briefly.
+4. Apply the smallest appropriate fix.
+5. Run formatting.
+6. Run analyzer.
+7. Run tests.
+
+Do not hide errors.
+
+==================================================
+13. WHEN ADDING A NEW PACKAGE
+==================================================
+
+Before adding a package:
+
+1. Check whether Flutter/Dart already provides the functionality.
+2. Check whether the project already has an equivalent package.
+3. Determine whether the dependency is actually necessary.
+4. Explain why it is needed.
+5. Avoid unnecessary dependencies.
+
+==================================================
+14. GIT / CODE QUALITY
+==================================================
+
+Keep changes organized.
+
+Prefer commits such as:
+
+feat(wallet): add demo wallet screen
+feat(transactions): add mock transaction history
+fix(auth): handle invalid demo login
+test(wallet): add repository tests
+refactor(wallet): simplify wallet state
+docs(project): update setup instructions
+
+Avoid meaningless commit names such as:
+
+update
+changes
+final
+test123
+
+==================================================
+15. FINAL INSPECTION BEFORE REPORTING COMPLETION
+==================================================
+
+Before saying a task is complete, verify:
+
+[ ] dart format .
+[ ] flutter analyze
+[ ] flutter test
+[ ] No critical errors
+[ ] No production secrets
+[ ] No real financial data
+[ ] No unnecessary dependencies
+[ ] UI is responsive
+[ ] Arabic works
+[ ] English works
+[ ] RTL works
+[ ] LTR works
+[ ] Loading state works
+[ ] Empty state works
+[ ] Error state works
+[ ] Success state works
+
+==================================================
+16. IMPORTANT: FIRST ACTION NOW
+==================================================
+
+Do NOT start coding yet.
+
+First inspect the project and read all available instruction files.
+
+Then return a report containing:
+
+1. Files found and read
+2. Files missing
+3. Current project structure
+4. Current architecture
+5. Current features
+6. Problems found
+7. Security issues
+8. UI/UX issues
+9. Testing gaps
+10. Recommended next development step
+
+Do not make large changes during this inspection.
+
+Wait for the next development instruction after the report.

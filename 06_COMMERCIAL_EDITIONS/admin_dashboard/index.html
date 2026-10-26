@@ -1,0 +1,2591 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم الإدارية — محفظة النجم بلس الرقمية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ==============================================================================
+           THEME DEFINITIONS: LIGHT (WHITE DEFAULT) & DARK (BLACK SLEEK)
+           ============================================================================== */
+        :root {
+            --primary: #9E1B21;
+            --primary-dark: #7A1015;
+            --primary-light: rgba(158, 27, 33, 0.08);
+            --primary-glow: rgba(158, 27, 33, 0.35);
+            --accent: #F59E0B;
+            --accent-dark: #D97706;
+            --success: #10B981;
+            --danger: #EF4444;
+            --warning: #F59E0B;
+            --info: #3B82F6;
+        }
+
+        /* LIGHT MODE (DEFAULT: WHITE CLEAN CORPORATE) */
+        [data-theme="light"] {
+            --bg: #F8FAFC;
+            --surface: #FFFFFF;
+            --surface-card: #FFFFFF;
+            --surface-hover: #F1F5F9;
+            --sidebar-bg: #FFFFFF;
+            --border: #E2E8F0;
+            --border-light: #F1F5F9;
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --text-dim: #94A3B8;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+            --badge-bg: #F1F5F9;
+            --badge-text: #475569;
+            --input-bg: #FFFFFF;
+            --table-header-bg: #F8FAFC;
+            --modal-overlay: rgba(15, 23, 42, 0.6);
+        }
+
+        /* DARK MODE (DEEP SLEEK BLACK/SLATE) */
+        [data-theme="dark"] {
+            --bg: #090D1A;
+            --surface: #0F172A;
+            --surface-card: #131E36;
+            --surface-hover: #1E293B;
+            --sidebar-bg: #0C1222;
+            --border: #1E293B;
+            --border-light: rgba(255, 255, 255, 0.05);
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --text-dim: #64748B;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            --badge-bg: #1E293B;
+            --badge-text: #CBD5E1;
+            --input-bg: #0A0F1D;
+            --table-header-bg: #111C33;
+            --modal-overlay: rgba(0, 0, 0, 0.8);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            overflow-x: hidden;
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+
+        /* Icons helper */
+        .icon-svg {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            stroke-width: 2;
+            stroke: currentColor;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            vertical-align: middle;
+            flex-shrink: 0;
+        }
+
+        /* ==============================================================================
+           SIDEBAR (RIGHT PANEL IN RTL)
+           ============================================================================== */
+        .sidebar {
+            width: 280px;
+            background: var(--sidebar-bg);
+            border-left: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            z-index: 90;
+            transition: width 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+        }
+
+        .sidebar-header {
+            padding: 20px 22px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sidebar-logo-img {
+            height: 48px;
+            max-width: 140px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 8px var(--primary-glow));
+        }
+
+        .sidebar-brand-text h1 {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--text-main);
+            line-height: 1.25;
+        }
+
+        .sidebar-brand-text span {
+            font-size: 0.72rem;
+            color: var(--primary);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .sidebar-nav {
+            padding: 16px 14px;
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .nav-category-title {
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 12px 12px 4px 12px;
+            margin-top: 4px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            color: var(--text-muted);
+            border-radius: 10px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: right;
+            transition: all 0.18s ease;
+        }
+
+        .nav-item-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-item:hover {
+            color: var(--text-main);
+            background: var(--surface-hover);
+        }
+
+        .nav-item.active {
+            background: var(--primary);
+            color: #FFFFFF;
+            box-shadow: 0 4px 12px var(--primary-glow);
+            font-weight: 700;
+        }
+
+        .nav-badge-pill {
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            padding: 2px 7px;
+            border-radius: 12px;
+            font-size: 0.72rem;
+            font-weight: 700;
+        }
+
+        .nav-item.active .nav-badge-pill {
+            background: rgba(255, 255, 255, 0.25);
+            color: #FFFFFF;
+        }
+
+        .sidebar-footer {
+            padding: 16px 20px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--surface);
+        }
+
+        .admin-profile-pill {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.95rem;
+            border: 1px solid var(--primary-glow);
+        }
+
+        .admin-info-text {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.2;
+        }
+
+        .admin-info-text small {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* ==============================================================================
+           MAIN LAYOUT WRAPPER & TOP HEADER
+           ============================================================================== */
+        .main-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .top-header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 80;
+            backdrop-filter: blur(10px);
+            transition: background-color 0.25s, border-color 0.25s;
+        }
+
+        .header-title-box h2 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-title-box p {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .header-actions-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Supabase Pill */
+        .supabase-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.08);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        .pulse-indicator {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--success);
+            animation: pulseAnim 1.6s infinite;
+        }
+
+        @keyframes pulseAnim {
+            0% { transform: scale(0.9); opacity: 0.7; }
+            50% { transform: scale(1.3); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.7; }
+        }
+
+        .latency-badge {
+            background: rgba(16, 185, 129, 0.15);
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-family: monospace;
+        }
+
+        /* Theme Toggle Button */
+        .btn-theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--badge-bg);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 7px 14px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-theme-toggle:hover {
+            background: var(--surface-hover);
+        }
+
+        /* Sync Button */
+        .btn-cloud-sync {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 7px 15px;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 3px 10px var(--primary-glow);
+            transition: all 0.2s;
+        }
+
+        .btn-cloud-sync:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 14px var(--primary-glow);
+        }
+
+        .badge-hotline {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(220, 38, 38, 0.08);
+            color: #DC2626;
+            border: 1px solid rgba(220, 38, 38, 0.25);
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        /* ==============================================================================
+           MAIN WORKSPACE & CONTENT
+           ============================================================================== */
+        .workspace-body {
+            padding: 28px;
+            flex: 1;
+        }
+
+        .tab-section {
+            display: none;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .tab-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Metric Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            position: relative;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .stat-card-title {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .stat-card-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--badge-bg);
+            color: var(--primary);
+        }
+
+        .stat-card-value {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
+
+        .stat-card-subtext {
+            font-size: 0.76rem;
+            color: var(--text-dim);
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
+        /* Content Card / Table Panel */
+        .panel-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .panel-card-header {
+            padding: 16px 22px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--surface);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .panel-card-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .panel-card-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-input-field {
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 7px 14px;
+            color: var(--text-main);
+            font-size: 0.85rem;
+            outline: none;
+            width: 250px;
+            transition: border-color 0.2s;
+        }
+
+        .search-input-field:focus {
+            border-color: var(--primary);
+        }
+
+        .select-filter-field {
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 7px 12px;
+            color: var(--text-main);
+            font-size: 0.85rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* Buttons */
+        .btn-corporate {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.84rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-corporate-primary {
+            background: var(--primary);
+            color: #FFFFFF;
+            box-shadow: 0 2px 8px var(--primary-glow);
+        }
+
+        .btn-corporate-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-corporate-outline {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+
+        .btn-corporate-outline:hover {
+            background: var(--surface-hover);
+        }
+
+        .btn-corporate-danger {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .btn-corporate-danger:hover {
+            background: var(--danger);
+            color: #FFFFFF;
+        }
+
+        .btn-corporate-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .btn-corporate-success:hover {
+            background: var(--success);
+            color: #FFFFFF;
+        }
+
+        /* Table */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: right;
+            font-size: 0.88rem;
+        }
+
+        th {
+            background: var(--table-header-bg);
+            color: var(--text-muted);
+            padding: 12px 18px;
+            font-weight: 700;
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-main);
+            vertical-align: middle;
+        }
+
+        tr:hover td {
+            background: var(--surface-hover);
+        }
+
+        /* Status Badge Pills */
+        .badge-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.74rem;
+            font-weight: 700;
+        }
+
+        .badge-status.active {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+            border: 1px solid rgba(16, 185, 129, 0.25);
+        }
+
+        [data-theme="dark"] .badge-status.active {
+            color: #34D399;
+        }
+
+        .badge-status.frozen {
+            background: rgba(239, 68, 68, 0.1);
+            color: #DC2626;
+            border: 1px solid rgba(239, 68, 68, 0.25);
+        }
+
+        [data-theme="dark"] .badge-status.frozen {
+            color: #F87171;
+        }
+
+        .badge-status.pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: #D97706;
+            border: 1px solid rgba(245, 158, 11, 0.25);
+        }
+
+        [data-theme="dark"] .badge-status.pending {
+            color: #FBBF24;
+        }
+
+        /* Forms & Settings Grid */
+        .form-grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 24px;
+        }
+
+        .form-section-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .form-section-box h3 {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-group {
+            margin-bottom: 14px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .input-group input, .input-group textarea, .input-group select {
+            width: 100%;
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            padding: 9px 12px;
+            border-radius: 8px;
+            color: var(--text-main);
+            font-size: 0.88rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-group input:focus, .input-group textarea:focus, .input-group select:focus {
+            border-color: var(--primary);
+        }
+
+        /* Code Block Snippet */
+        .code-container {
+            background: #0F172A;
+            color: #E2E8F0;
+            padding: 14px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            overflow-x: auto;
+            direction: ltr;
+            text-align: left;
+            border: 1px solid #1E293B;
+            margin-top: 8px;
+        }
+
+        /* Modal Overlay */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: var(--modal-overlay);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-dialog {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            width: 90%;
+            max-width: 580px;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            animation: modalPop 0.2s ease-out;
+        }
+
+        @keyframes modalPop {
+            from { transform: scale(0.96); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-dialog-header {
+            padding: 16px 22px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--surface-card);
+        }
+
+        .modal-dialog-header h3 {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .modal-close-btn {
+            background: transparent;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .modal-dialog-body {
+            padding: 22px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .modal-dialog-footer {
+            padding: 14px 22px;
+            background: var(--surface-card);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        /* Toast */
+        .toast-notification {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            background: var(--surface-card);
+            color: var(--text-main);
+            padding: 14px 20px;
+            border-radius: 10px;
+            border-right: 4px solid var(--primary);
+            box-shadow: var(--shadow-lg);
+            font-weight: 700;
+            font-size: 0.88rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 2000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .toast-notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==============================================================================
+         1. CORPORATE SIDEBAR NAVIGATION (RTL RIGHT-ALIGNED)
+         ============================================================================== -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="alnajm_logo_transparent_hd.png" alt="النجم بلس" class="sidebar-logo-img">
+            <div class="sidebar-brand-text">
+                <h1>النجم بلس</h1>
+                <span>الإدارة العامة والمصرفية</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-category-title">الرئيسية والرقابة العامة</div>
+            <button class="nav-item active" onclick="switchNavTab('tab-overview')">
+                <div class="nav-item-content">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    <span>لوحة القيادة والمؤشرات</span>
+                </div>
+            </button>
+            <button class="nav-item" onclick="switchNavTab('tab-transactions')">
+                <div class="nav-item-content">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    <span>سجل العمليات والتحويلات</span>
+                </div>
+                <span class="nav-badge-pill" id="badgeTxCount">3</span>
+            </button>
+
+            <div class="nav-category-title">إدارة المحافظ والعملاء</div>
+            <button class="nav-item" onclick="switchNavTab('tab-users')">
+                <div class="nav-item-content">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    <span>حسابات العملاء والمحافظ</span>
+                </div>
+                <span class="nav-badge-pill" id="badgeUsersCount">4</span>
+            </button>
+            <button class="nav-item" onclick="switchNavTab('tab-kyc')">
+                <div class="nav-item-content">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span>طلبات التوثيق والـ KYC</span>
+                </div>
+                <span class="nav-badge-pill" id="badgeKycCount">2</span>
+            </button>
+            <button class="nav-item" onclick="switchNavTab('tab-devices')">
+                <div class="nav-item-content">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                    <span>الأجهزة والجلسات النشطة</span>
+                </div>
+                <span class="nav-badge-pill" id="badgeDevicesCount">3</span>
+            </button>
+
+            <div class="nav-category-title">التكامل وشحن التطبيقات</div>
+            <button class="nav-item" onclick="switchNavTab('tab-api-integrations')">
+                <div class="nav-item-content">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><path d="M21 2l-2 2m-1.5 1.5L16 7l-1.5-1.5L13 7l-2-2-4 4a5 5 0 1 0 7 7l4-4v-2.5l1.5-1.5V6l1.5-1.5z"/></svg>
+                    <span>توليد الـ APIs وشحن الألعاب</span>
+                </div>
+                <span class="nav-badge-pill" style="background:rgba(16,185,129,0.15); color:var(--success);">B2B</span>
+            </button>
+
+            <div class="nav-category-title">إعدادات النظام والمالية</div>
+            <button class="nav-item" onclick="switchNavTab('tab-rates')">
+                <div class="nav-item-content">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    <span>أسعار الصرف والعمولات</span>
+                </div>
+            </button>
+            <button class="nav-item" onclick="switchNavTab('tab-banners')">
+                <div class="nav-item-content">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+                    <span>إعلانات وبنرات المحفظة</span>
+                </div>
+            </button>
+            <button class="nav-item" onclick="switchNavTab('tab-branches')">
+                <div class="nav-item-content">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span>الفروع ومراكز الخدمة</span>
+                </div>
+            </button>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="admin-profile-pill">
+                <div class="admin-avatar">AD</div>
+                <div class="admin-info-text">
+                    المدير العام للنظام
+                    <small>صلاحيات كاملة | المركز الرئيسي</small>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ==============================================================================
+         2. MAIN WORKSPACE CONTAINER
+         ============================================================================== -->
+    <div class="main-wrapper">
+
+        <!-- Top Header Navigation -->
+        <header class="top-header">
+            <div class="header-title-box">
+                <h2 id="currentSectionTitle">لوحة القيادة والمؤشرات العامة</h2>
+                <p id="currentSectionDesc">متابعة أرصدة السيولة وحركة المعاملات المتزامنة لحظياً عبر السحابة</p>
+            </div>
+
+            <div class="header-actions-group">
+                <!-- Supabase Cloud Indicator -->
+                <div class="supabase-status-pill" title="سيرفر قواعد البيانات السحابي: dcedqkwnwahfcnqogypc.supabase.co">
+                    <span class="pulse-indicator"></span>
+                    <span>متصل مع قواعد البيانات</span>
+                    <span class="latency-badge" id="supaLatencyBadge">98ms</span>
+                </div>
+
+                <!-- Theme Switcher: Light / Dark -->
+                <button class="btn-theme-toggle" onclick="toggleThemeMode()" id="themeToggleBtn">
+                    <svg class="icon-svg" id="themeIcon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    <span id="themeToggleText">الوضع الداكن</span>
+                </button>
+
+                <!-- Cloud Sync -->
+                <button class="btn-cloud-sync" onclick="syncAllSupabaseData()">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                    <span>مزامنة سحابية</span>
+                </button>
+
+                <div class="badge-hotline">مركز الاتصال: 8000008</div>
+            </div>
+        </header>
+
+        <!-- Workspace Body -->
+        <main class="workspace-body">
+
+            <!-- ====================================================================
+                 VIEW 1: OVERVIEW & DASHBOARD
+                 ==================================================================== -->
+            <section id="tab-overview" class="tab-section active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <span class="stat-card-title">إجمالي المحافظ المسجلة</span>
+                            <div class="stat-card-icon"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+                        </div>
+                        <div class="stat-card-value" id="statOverviewUsers">4</div>
+                        <div class="stat-card-subtext">عملاء موثقين في قاعدة بيانات السحابة</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <span class="stat-card-title">إجمالي السيولة المدارة</span>
+                            <div class="stat-card-icon"><svg class="icon-svg" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+                        </div>
+                        <div class="stat-card-value">566,420 <span style="font-size:0.9rem; font-weight:700;">ر.ي</span></div>
+                        <div class="stat-card-subtext">+ 5,150 ر.س | + 3,070 دولار أمريكي</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <span class="stat-card-title">طلبات التوثيق بالانتظار</span>
+                            <div class="stat-card-icon" style="color:var(--accent);"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                        </div>
+                        <div class="stat-card-value" id="statOverviewKyc">2</div>
+                        <div class="stat-card-subtext">فحص الذكاء الاصطناعي مكتمل بنسبة 98%</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <span class="stat-card-title">مفاتيح الربط والـ APIs النشطة</span>
+                            <div class="stat-card-icon" style="color:var(--success);"><svg class="icon-svg" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+                        </div>
+                        <div class="stat-card-value" id="statOverviewApis">3</div>
+                        <div class="stat-card-subtext">شحن ألعاب، اتصالات، وبوابات دفع B2B</div>
+                    </div>
+                </div>
+
+                <!-- Recent Live Transactions Table on Overview -->
+                <div class="panel-card">
+                    <div class="panel-card-header">
+                        <div class="panel-card-title">
+                            <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                            <span>آخر المعاملات المالية المباشرة</span>
+                        </div>
+                        <button class="btn-corporate btn-corporate-primary" onclick="openSimulateTxModal()">
+                            <svg class="icon-svg" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            <span>تنفيذ معاملة جديدة</span>
+                        </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>رقم المعاملة</th>
+                                    <th>النوع والخدمة</th>
+                                    <th>المبلغ</th>
+                                    <th>الطرف المرسل</th>
+                                    <th>الطرف المستلم</th>
+                                    <th>العمولة</th>
+                                    <th>الوقت والتاريخ</th>
+                                    <th>الحالة</th>
+                                </tr>
+                            </thead>
+                            <tbody id="overviewTxTableBody">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ====================================================================
+                 VIEW 2: USERS & PER-USER DEVICE MANAGEMENT & COMPLETE WALLET CONTROL
+                 ==================================================================== -->
+            <section id="tab-users" class="tab-section">
+                <div class="panel-card">
+                    <div class="panel-card-header">
+                        <div class="panel-card-title">
+                            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                            <span>سجل الحسابات وصلاحيات التحكم الكامل بالمحفظة</span>
+                        </div>
+                        <div class="panel-card-actions">
+                            <input type="text" id="userFilterInput" class="search-input-field" placeholder="بحث بالاسم، رقم الهاتف، أو الحساب..." onkeyup="applyUsersFilter()">
+                            <select id="userFilterStatus" class="select-filter-field" onchange="applyUsersFilter()">
+                                <option value="ALL">جميع الحسابات</option>
+                                <option value="ACTIVE">النشطة فقط</option>
+                                <option value="FROZEN">المجمدة فقط</option>
+                            </select>
+                            <button class="btn-corporate btn-corporate-primary" onclick="openNewUserModal()">
+                                <svg class="icon-svg" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                                <span>فتح حساب عميل</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>العميل والمعرف</th>
+                                    <th>رقم الهاتف</th>
+                                    <th>رقم الحساب المصرفي</th>
+                                    <th>الرصيد المتاح</th>
+                                    <th>مستوى التوثيق</th>
+                                    <th>حالة الحساب</th>
+                                    <th>الأجهزة المصرحة</th>
+                                    <th>صلاحيات وإجراءات التحكم الكامل</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersMasterTableBody">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ====================================================================
+                 VIEW 3: KYC VERIFICATIONS & APPROVAL/REJECTION WITH REASON
+                 ==================================================================== -->
+            <section id="tab-kyc" class="tab-section">
+                <div class="panel-card">
+                    <div class="panel-card-header">
+                        <div class="panel-card-title">
+                            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <span>طلبات التوثيق والتحقق من الهوية (KYC Verification Queue)</span>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>رقم الطلب</th>
+                                    <th>اسم مقدم الطلب</th>
+                                    <th>رقم الهاتف</th>
+                                    <th>نوع الوثيقة</th>
+                                    <th>رقم الوثيقة</th>
+                                    <th>تاريخ التقديم</th>
+                                    <th>فحص الذكاء الاصطناعي</th>
+                                    <th>الحالة</th>
+                                    <th>قرار الإدارة</th>
+                                </tr>
+                            </thead>
+                            <tbody id="kycMasterTableBody">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ====================================================================
+                 VIEW 4: ACTIVE DEVICES & SESSIONS MANAGEMENT
+                 ==================================================================== -->
+            <section id="tab-devices" class="tab-section">
+                <div class="panel-card">
+                    <div class="panel-card-header">
+                        <div class="panel-card-title">
+                            <svg class="icon-svg" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                            <span>مراقبة وإدارة الجلسات والأجهزة النشطة</span>
+                        </div>
+                        <div class="panel-card-actions">
+                            <button class="btn-corporate btn-corporate-danger" onclick="terminateAllSuspiciousDevices()">
+                                <svg class="icon-svg" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                                <span>طرد كافة الجلسات المشبوهة</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>معرف الجلسة</th>
+                                    <th>صاحب الحساب</th>
+                                    <th>طراز ونوع الجهاز</th>
+                                    <th>نظام التشغيل</th>
+                                    <th>عنوان IP والموقع الجغرافي</th>
+                                    <th>آخر تواجد</th>
+                                    <th>مستوى الأمان</th>
+                                    <th>إجراءات الحظر</th>
+                                </tr>
+                            </thead>
+                            <tbody id="devicesMasterTableBody">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ====================================================================
+                 VIEW 5: DEVELOPER APIS & GAME / APP TOP-UP INTEGRATIONS (NEW!)
+                 ==================================================================== -->
+            <section id="tab-api-integrations" class="tab-section">
+                <div class="panel-card">
+                    <div class="panel-card-header">
+                        <div class="panel-card-title">
+                            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M21 2l-2 2m-1.5 1.5L16 7l-1.5-1.5L13 7l-2-2-4 4a5 5 0 1 0 7 7l4-4v-2.5l1.5-1.5V6l1.5-1.5z"/></svg>
+                            <span>بوابة توليد الـ APIs لشحن الألعاب والتطبيقات والربط العام B2B</span>
+                        </div>
+                        <div class="panel-card-actions">
+                            <button class="btn-corporate btn-corporate-primary" onclick="openGenerateApiKeyModal()">
+                                <svg class="icon-svg" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                                <span>توليد مفتاح API جديد</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>اسم المنصة / الشريك</th>
+                                    <th>نوع الخدمة والصلاحية</th>
+                                    <th>مفتاح الـ API (Public Key)</th>
+                                    <th>بيئة التشغيل</th>
+                                    <th>الاستهلاك الشهري</th>
+                                    <th>حالة الربط</th>
+                                    <th>تاريخ التوليد</th>
+                                    <th>الإجراءات والتحكم</th>
+                                </tr>
+                            </thead>
+                            <tbody id="apiKeysTableBody">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- API Developer Specs and Endpoints -->
+                <div class="panel-card">
+                    <div class="panel-card-header">
+                        <div class="panel-card-title">
+                            <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                            <span>دليل الربط السريع للمطورين (Integration Endpoints)</span>
+                        </div>
+                    </div>
+                    <div style="padding: 22px;">
+                        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">
+                            تتيح هذه الواجهات لشركاء شحن الألعاب (ببجي، فري فاير، بطاقات بلايستيشن، جوجل بلاي) ومواقع سداد الاتصالات (يمن موبايل، سبأفون، يو) خصم الرصيد وتنفيذ الشحن اللحظي عبر المحفظة:
+                        </p>
+                        
+                        <div style="margin-bottom:16px;">
+                            <span style="font-size:0.82rem; font-weight:700; color:var(--primary);">1. نقطة شحن الألعاب والتطبيقات الرقمية:</span>
+                            <div class="code-container">POST https://dcedqkwnwahfcnqogypc.supabase.co/rest/v1/rpc/process_game_topup
+Headers: { "apikey": "YOUR_API_KEY", "Authorization": "Bearer YOUR_SECRET_KEY" }
+Body: { "player_id": "519284710", "package_id": "PUBG_660_UC", "amount": 2500, "currency": "YER" }</div>
+                        </div>
+
+                        <div>
+                            <span style="font-size:0.82rem; font-weight:700; color:var(--primary);">2. استعلام رصيد حساب التاجر / الشريك:</span>
+                            <div class="code-container">GET https://dcedqkwnwahfcnqogypc.supabase.co/rest/v1/rpc/get_merchant_balance
+Headers: { "apikey": "YOUR_API_KEY", "Authorization": "Bearer YOUR_SECRET_KEY" }</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ====================================================================
+                 VIEW 6: EXCHANGE RATES & FEES MANAGEMENT
+                 ==================================================================== -->
+            <section id="tab-rates" class="tab-section">
+                <div class="panel-card">
+                    <div class="panel-card-header">
+                        <div class="panel-card-title">
+                            <svg class="icon-svg" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                            <span>لوحة أسعار الصرف الرسمية والعمولات المباشرة</span>
+                        </div>
+                        <button class="btn-corporate btn-corporate-primary" onclick="savePlatformRates()">
+                            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                            <span>نشر وتثبيت الأسعار في قواعد البيانات</span>
+                        </button>
+                    </div>
+
+                    <div class="form-grid-layout">
+                        <!-- SAR Sanaa -->
+                        <div class="form-section-box">
+                            <h3>الريال السعودي (أسواق صنعاء)</h3>
+                            <div class="input-group">
+                                <label>سعر الشراء من العميل (ر.ي):</label>
+                                <input type="number" id="rateSarBuy" value="142.50" step="0.1">
+                            </div>
+                            <div class="input-group">
+                                <label>سعر البيع للعميل (ر.ي):</label>
+                                <input type="number" id="rateSarSell" value="143.00" step="0.1">
+                            </div>
+                        </div>
+
+                        <!-- USD Sanaa -->
+                        <div class="form-section-box">
+                            <h3>الدولار الأمريكي (أسواق صنعاء)</h3>
+                            <div class="input-group">
+                                <label>سعر الشراء من العميل (ر.ي):</label>
+                                <input type="number" id="rateUsdBuy" value="535.00" step="1">
+                            </div>
+                            <div class="input-group">
+                                <label>سعر البيع للعميل (ر.ي):</label>
+                                <input type="number" id="rateUsdSell" value="538.00" step="1">
+                            </div>
+                        </div>
+
+                        <!-- SAR Aden -->
+                        <div class="form-section-box">
+                            <h3>الريال السعودي (أسواق عدن والمحافظات)</h3>
+                            <div class="input-group">
+                                <label>سعر الشراء من العميل (ر.ي):</label>
+                                <input type="number" id="rateSarAdenBuy" value="532.00" step="1">
+                            </div>
+                            <div class="input-group">
+                                <label>سعر البيع للعميل (ر.ي):</label>
+                                <input type="number" id="rateSarAdenSell" value="535.00" step="1">
+                            </div>
+                        </div>
+
+                        <!-- USD Aden -->
+                        <div class="form-section-box">
+                            <h3>الدولار الأمريكي (أسواق عدن والمحافظات)</h3>
+                            <div class="input-group">
+                                <label>سعر الشراء من العميل (ر.ي):</label>
+                                <input type="number" id="rateUsdAdenBuy" value="2015.00" step="5">
+                            </div>
+                            <div class="input-group">
+                                <label>سعر البيع للعميل (ر.ي):</label>
+                                <input type="number" id="rateUsdAdenSell" value="2030.00" step="5">
+                            </div>
+                        </div>
+
+                        <!-- Fees -->
+                        <div class="form-section-box">
+                            <h3>عمولات وضوابط التحويل المالي</h3>
+                            <div class="input-group">
+                                <label>نسبة عمولة التحويل (%):</label>
+                                <input type="number" id="feePercent" value="1.5" step="0.1">
+                            </div>
+                            <div class="input-group">
+                                <label>الحد الأدنى لعمولة التحويل (ر.ي):</label>
+                                <input type="number" id="minFee" value="200" step="50">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ====================================================================
+                 VIEW 7: IN-APP BANNERS & ANNOUNCEMENTS
+                 ==================================================================== -->
+            <section id="tab-banners" class="tab-section">
+                <div class="panel-card">
+                    <div class="panel-card-header">
+                        <div class="panel-card-title">
+                            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+                            <span>إدارة الإعلانات الترويجية وتنبيهات الأمان المنشورة في التطبيق</span>
+                        </div>
+                        <button class="btn-corporate btn-corporate-primary" onclick="openAddBannerModal()">
+                            <svg class="icon-svg" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            <span>إضافة إعلان جديد</span>
+                        </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>معرف الإعلان</th>
+                                    <th>عنوان التنبيه</th>
+                                    <th>نص الرسالة المنشورة</th>
+                                    <th>التصنيف</th>
+                                    <th>الحالة</th>
+                                    <th>الإجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bannersMasterTableBody">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ====================================================================
+                 VIEW 8: FULL TRANSACTIONS LEDGER
+                 ==================================================================== -->
+            <section id="tab-transactions" class="tab-section">
+                <div class="panel-card">
+                    <div class="panel-card-header">
+                        <div class="panel-card-title">
+                            <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                            <span>سجل الحوالات والمعاملات المالية العام</span>
+                        </div>
+                        <button class="btn-corporate btn-corporate-primary" onclick="openSimulateTxModal()">
+                            <svg class="icon-svg" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            <span>محاكاة وضخ معاملة</span>
+                        </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>رقم المعاملة</th>
+                                    <th>نوع العملية</th>
+                                    <th>المبلغ والعملة</th>
+                                    <th>الطرف المرسل</th>
+                                    <th>الطرف المستلم</th>
+                                    <th>رسوم المعاملة</th>
+                                    <th>التاريخ والتوقيت</th>
+                                    <th>حالة المعاملة</th>
+                                </tr>
+                            </thead>
+                            <tbody id="transactionsMasterTableBody">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ====================================================================
+                 VIEW 9: BRANCHES
+                 ==================================================================== -->
+            <section id="tab-branches" class="tab-section">
+                <div class="panel-card">
+                    <div class="panel-card-header">
+                        <div class="panel-card-title">
+                            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            <span>دليل الفروع ومراكز الخدمة المصرفية المعتمدة</span>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>اسم الفرع</th>
+                                    <th>المحافظة</th>
+                                    <th>العنوان الدقيق</th>
+                                    <th>رقم الاتصال</th>
+                                    <th>ساعات العمل</th>
+                                    <th>الحالة التشغيلية</th>
+                                </tr>
+                            </thead>
+                            <tbody id="branchesMasterTableBody">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- ==============================================================================
+         MODALS & OVERLAYS
+         ============================================================================== -->
+
+    <!-- MODAL 1: PER-USER DEVICE MANAGEMENT (REQUESTED BY USER) -->
+    <div id="userDevicesModal" class="modal-backdrop">
+        <div class="modal-dialog" style="max-width: 680px;">
+            <div class="modal-dialog-header">
+                <h3>الأجهزة المصرح بها للحساب: <span id="modalUserDeviceTargetName" style="color:var(--primary);"></span></h3>
+                <button class="modal-close-btn" onclick="closeModal('userDevicesModal')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+            </div>
+            <div class="modal-dialog-body">
+                <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:14px;">
+                    يمكن للمسؤول إنهاء جلسة أي جهاز مشبوه، أو حصر تسجيل الدخول على جهاز محدد لحماية أموال العميل:
+                </p>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>اسم الجهاز</th>
+                                <th>نظام التشغيل</th>
+                                <th>عنوان IP</th>
+                                <th>آخر نشاط</th>
+                                <th>حالة الجلسة</th>
+                                <th>الإجراء</th>
+                            </tr>
+                        </thead>
+                        <tbody id="userDevicesListBody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="margin-top:20px; padding:14px; background:var(--badge-bg); border-radius:10px; display:flex; align-items:center; justify-content:space-between;">
+                    <div>
+                        <div style="font-size:0.86rem; font-weight:700;">تقييد الحساب بجهاز واحد فقط (Single Device Enforcement)</div>
+                        <div style="font-size:0.75rem; color:var(--text-muted);">منع تسجيل الدخول من أي هاتف آخر إلا بفك الحظر من لوحة الإدارة</div>
+                    </div>
+                    <button class="btn-corporate btn-corporate-primary" onclick="toggleSingleDevicePolicy()">تفعيل السياسة</button>
+                </div>
+            </div>
+            <div class="modal-dialog-footer">
+                <button class="btn-corporate btn-corporate-danger" onclick="revokeAllUserDevices()">طرد كافة أجهزة العميل</button>
+                <button class="btn-corporate btn-corporate-outline" onclick="closeModal('userDevicesModal')">إغلاق النافذة</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: COMPREHENSIVE WALLET CONTROL & EDIT (REQUESTED BY USER) -->
+    <div id="walletControlModal" class="modal-backdrop">
+        <div class="modal-dialog" style="max-width: 640px;">
+            <div class="modal-dialog-header">
+                <h3>التحكم الشامل في المحفظة: <span id="controlUserHeader" style="color:var(--primary);"></span></h3>
+                <button class="modal-close-btn" onclick="closeModal('walletControlModal')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+            </div>
+            <div class="modal-dialog-body">
+                <input type="hidden" id="ctrlUserId">
+                
+                <!-- Category 1: User Profile -->
+                <div style="margin-bottom:16px;">
+                    <div style="font-size:0.82rem; font-weight:800; color:var(--primary); margin-bottom:10px;">1. البيانات الأساسية للعميل</div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                        <div class="input-group">
+                            <label>الاسم الكامل:</label>
+                            <input type="text" id="ctrlFullName">
+                        </div>
+                        <div class="input-group">
+                            <label>رقم الهاتف المعتمد:</label>
+                            <input type="text" id="ctrlPhone">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 2: Direct Balance Adjustment -->
+                <div style="margin-bottom:16px; padding:14px; background:var(--badge-bg); border-radius:10px;">
+                    <div style="font-size:0.82rem; font-weight:800; color:var(--primary); margin-bottom:10px;">2. تعديل وتغذية الرصيد المالي المباشر</div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+                        <div class="input-group">
+                            <label>رصيد ر.ي (YER):</label>
+                            <input type="number" id="ctrlBalanceYer">
+                        </div>
+                        <div class="input-group">
+                            <label>رصيد ر.س (SAR):</label>
+                            <input type="number" id="ctrlBalanceSar">
+                        </div>
+                        <div class="input-group">
+                            <label>رصيد دولار (USD):</label>
+                            <input type="number" id="ctrlBalanceUsd">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 3: Financial Limits -->
+                <div style="margin-bottom:16px;">
+                    <div style="font-size:0.82rem; font-weight:800; color:var(--primary); margin-bottom:10px;">3. سقوف الحوالات وصلاحية العمليات</div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                        <div class="input-group">
+                            <label>سقف التحويل اليومي (ر.ي):</label>
+                            <input type="number" id="ctrlDailyLimit" value="2000000">
+                        </div>
+                        <div class="input-group">
+                            <label>مستوى التوثيق KYC:</label>
+                            <select id="ctrlKycLevel">
+                                <option value="TIER_0">TIER_0 (غير موثق - سقف 50,000 ر.ي)</option>
+                                <option value="TIER_1">TIER_1 (توثيق أساسي - سقف 500,000 ر.ي)</option>
+                                <option value="TIER_2">TIER_2 (توثيق كامل - سقف 2,000,000 ر.ي)</option>
+                                <option value="VIP">VIP (سقف مفتوح للشركات)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 4: Feature Flags -->
+                <div>
+                    <div style="font-size:0.82rem; font-weight:800; color:var(--primary); margin-bottom:10px;">4. صلاحيات الخدمات للمحفظة</div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:0.82rem;">
+                        <label style="display:flex; align-items:center; gap:6px;">
+                            <input type="checkbox" id="permTransfer" checked> السماح بالتحويل المالي
+                        </label>
+                        <label style="display:flex; align-items:center; gap:6px;">
+                            <input type="checkbox" id="permTopup" checked> السماح بشحن الألعاب والتطبيقات
+                        </label>
+                        <label style="display:flex; align-items:center; gap:6px;">
+                            <input type="checkbox" id="permBillPay" checked> السماح بسداد الفواتير
+                        </label>
+                        <label style="display:flex; align-items:center; gap:6px;">
+                            <input type="checkbox" id="permQrPay" checked> السماح بالسداد عبر QR
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-dialog-footer">
+                <button class="btn-corporate btn-corporate-outline" onclick="closeModal('walletControlModal')">إلغاء</button>
+                <button class="btn-corporate btn-corporate-primary" onclick="saveComprehensiveWalletControl()">حفظ وترحيل التعديلات للسحابة</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: GENERATE API KEY FOR GAMES & GENERAL INTEGRATION (REQUESTED BY USER) -->
+    <div id="generateApiKeyModal" class="modal-backdrop">
+        <div class="modal-dialog">
+            <div class="modal-dialog-header">
+                <h3>توليد مفتاح برمجي API لربط شحن التطبيقات والألعاب</h3>
+                <button class="modal-close-btn" onclick="closeModal('generateApiKeyModal')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+            </div>
+            <div class="modal-dialog-body">
+                <div class="input-group">
+                    <label>اسم المنصة أو التاجر الشريك:</label>
+                    <input type="text" id="newApiPlatformName" placeholder="مثال: متجر جيمرز اليمني لشحن ببجي وفري فاير">
+                </div>
+                <div class="input-group">
+                    <label>نوع الصلاحية والخدمة المصرح بها:</label>
+                    <select id="newApiServiceType">
+                        <option value="شحن ألعاب وبطاقات رقمية (PUBG, FreeFire, Steam, PS)">شحن ألعاب وبطاقات رقمية (PUBG, FreeFire, Steam, PS)</option>
+                        <option value="شحن رصيد وباقات اتصالات (يمن موبايل، سبأفون، يو، عدن نت)">شحن رصيد وباقات اتصالات (يمن موبايل، سبأفون، يو، عدن نت)</option>
+                        <option value="بوابة دفع إلكتروني للمتاجر والتطبيقات (E-Commerce B2B)">بوابة دفع إلكتروني للمتاجر والتطبيقات (E-Commerce B2B)</option>
+                        <option value="ربط مصرفي شامل (Full Access - معتمد)">ربط مصرفي شامل (Full Access - معتمد)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>بيئة التشغيل:</label>
+                    <select id="newApiEnv">
+                        <option value="إنتاج حقيقي (Live Production)">إنتاج حقيقي (Live Production)</option>
+                        <option value="بيئة اختبار وتجربة (Sandbox)">بيئة اختبار وتجربة (Sandbox)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>رابط الـ Webhook للإشعارات الفورية (اختياري):</label>
+                    <input type="url" id="newApiWebhook" placeholder="https://api.partner.com/webhook/callback">
+                </div>
+                <div class="input-group">
+                    <label>عنوان IP المصرح به للربط (IP Whitelist):</label>
+                    <input type="text" id="newApiIpWhitelist" placeholder="مثال: 185.190.142.10 (اتركه فارغاً لجميع العناوين)">
+                </div>
+            </div>
+            <div class="modal-dialog-footer">
+                <button class="btn-corporate btn-corporate-outline" onclick="closeModal('generateApiKeyModal')">إلغاء</button>
+                <button class="btn-corporate btn-corporate-primary" onclick="submitGenerateApiKey()">توليد المفتاح البرمجي الآن</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 4: REJECT KYC WITH CUSTOM REASON -->
+    <div id="rejectKycDialog" class="modal-backdrop">
+        <div class="modal-dialog">
+            <div class="modal-dialog-header">
+                <h3 style="color:var(--danger);">رفض طلب التوثيق مع ذكر السبب</h3>
+                <button class="modal-close-btn" onclick="closeModal('rejectKycDialog')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+            </div>
+            <div class="modal-dialog-body">
+                <input type="hidden" id="rejectKycTargetId">
+                <div class="input-group">
+                    <label>اسم مقدم الطلب:</label>
+                    <input type="text" id="rejectApplicantNameField" readonly style="opacity:0.75;">
+                </div>
+                <div class="input-group">
+                    <label>سبب الرفض الموجه للعميل في التطبيق:</label>
+                    <textarea id="rejectReasonField" rows="4" placeholder="مثال: وثيقة الهوية منتهية الصلاحية، أو الصورة غير واضحة وبها انعكاس ضوئي..."></textarea>
+                </div>
+            </div>
+            <div class="modal-dialog-footer">
+                <button class="btn-corporate btn-corporate-outline" onclick="closeModal('rejectKycDialog')">إلغاء</button>
+                <button class="btn-corporate btn-corporate-danger" onclick="confirmKycRejection()">تأكيد الرفض وإشعار العميل</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 5: SIMULATE TRANSACTION -->
+    <div id="simulateTxDialog" class="modal-backdrop">
+        <div class="modal-dialog">
+            <div class="modal-dialog-header">
+                <h3>محاكاة تنفيذ معاملة مالية</h3>
+                <button class="modal-close-btn" onclick="closeModal('simulateTxDialog')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+            </div>
+            <div class="modal-dialog-body">
+                <div class="input-group">
+                    <label>نوع العملية:</label>
+                    <select id="simTxType">
+                        <option value="تحويل مالي بين المحافظ">تحويل مالي بين المحافظ</option>
+                        <option value="شحن ألعاب وبطاقات (PUBG Mobile)">شحن ألعاب وبطاقات (PUBG Mobile)</option>
+                        <option value="سداد باقة اتصالات (يمن موبايل)">سداد باقة اتصالات (يمن موبايل)</option>
+                        <option value="إيداع نقدي عبر الفرع">إيداع نقدي عبر الفرع</option>
+                        <option value="سحب نقدي من الصراف">سحب نقدي من الصراف</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>المبلغ المالي:</label>
+                    <input type="number" id="simTxAmount" value="35000">
+                </div>
+                <div class="input-group">
+                    <label>العملة:</label>
+                    <select id="simTxCurrency">
+                        <option value="ر.ي">ريال يمني (ر.ي)</option>
+                        <option value="ر.س">ريال سعودي (ر.س)</option>
+                        <option value="$">دولار أمريكي ($)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>حساب الطرف المرسل:</label>
+                    <input type="text" id="simTxSender" value="محمد النهمي (777123456)">
+                </div>
+                <div class="input-group">
+                    <label>حساب الطرف المستلم / المتجر:</label>
+                    <input type="text" id="simTxReceiver" value="أحمد الوصابي (733456789)">
+                </div>
+            </div>
+            <div class="modal-dialog-footer">
+                <button class="btn-corporate btn-corporate-outline" onclick="closeModal('simulateTxDialog')">إلغاء</button>
+                <button class="btn-corporate btn-corporate-primary" onclick="confirmSimulateTx()">تنفيذ وضخ المعاملة</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 6: ADD BANNER -->
+    <div id="addBannerDialog" class="modal-backdrop">
+        <div class="modal-dialog">
+            <div class="modal-dialog-header">
+                <h3>إضافة بنر أو تنبيه جديد للمحفظة</h3>
+                <button class="modal-close-btn" onclick="closeModal('addBannerDialog')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+            </div>
+            <div class="modal-dialog-body">
+                <div class="input-group">
+                    <label>عنوان الإعلان:</label>
+                    <input type="text" id="newBnrTitle" placeholder="مثال: خصم خاص على شحن الألعاب">
+                </div>
+                <div class="input-group">
+                    <label>نص الرسالة أو التنبيه:</label>
+                    <textarea id="newBnrMsg" rows="3" placeholder="أدخل نص التنبيه الموجه لجميع العملاء..."></textarea>
+                </div>
+                <div class="input-group">
+                    <label>نوع التنبيه:</label>
+                    <select id="newBnrType">
+                        <option value="PROMO">عرض ترويجي (PROMO)</option>
+                        <option value="SECURITY">أمان وتوعية (SECURITY)</option>
+                        <option value="SYSTEM">تحديث نظام (SYSTEM)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-dialog-footer">
+                <button class="btn-corporate btn-corporate-outline" onclick="closeModal('addBannerDialog')">إلغاء</button>
+                <button class="btn-corporate btn-corporate-primary" onclick="confirmAddBanner()">نشر في التطبيق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Box -->
+    <div id="globalToast" class="toast-notification">
+        <svg class="icon-svg" style="color:var(--primary);" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span id="globalToastMsg">تم تنفيذ الإجراء بنجاح</span>
+    </div>
+
+    <!-- ==============================================================================
+         JAVASCRIPT LOGIC & SUPABASE INTEGRATION
+         ============================================================================== -->
+    <script>
+        const SUPABASE_CONFIG = {
+            url: "YOUR_SUPABASE_URL",
+            publishableKey: "YOUR_SUPABASE_PUBLISHABLE_KEY",
+            secretKey: "YOUR_SUPABASE_SECRET_KEY",
+            bucket: "wallet_system"
+        };
+
+        // 1. DATA REPOSITORIES
+        let usersData = [
+            {
+                id: 'USR-78210',
+                fullName: 'محمد علي عبدالكريم أحمد النهمي',
+                phone: '777123456',
+                accountNo: 'ACC-992104',
+                balanceYER: 15420.50,
+                balanceSAR: 1250.00,
+                balanceUSD: 850.00,
+                status: 'ACTIVE',
+                kycLevel: 'TIER_1',
+                dailyLimit: 2000000,
+                devices: [
+                    { name: 'Samsung Galaxy S24 Ultra', os: 'Android 14', ip: '185.190.142.12', lastActive: 'الآن (نشط)', isCurrent: true },
+                    { name: 'iPad Pro 12.9', os: 'iPadOS 17.5', ip: '185.190.142.12', lastActive: 'منذ ساعتين', isCurrent: false }
+                ]
+            },
+            {
+                id: 'USR-78211',
+                fullName: 'أحمد صالح قاسم الوصابي',
+                phone: '733456789',
+                accountNo: 'ACC-992105',
+                balanceYER: 450000.00,
+                balanceSAR: 3400.00,
+                balanceUSD: 2100.00,
+                status: 'ACTIVE',
+                kycLevel: 'TIER_2',
+                dailyLimit: 5000000,
+                devices: [
+                    { name: 'iPhone 15 Pro Max', os: 'iOS 17.6', ip: '82.114.160.8', lastActive: 'منذ 20 دقيقة', isCurrent: true }
+                ]
+            },
+            {
+                id: 'USR-78212',
+                fullName: 'عمار ياسر سيف القدسي',
+                phone: '711987654',
+                accountNo: 'ACC-992106',
+                balanceYER: 12000.00,
+                balanceSAR: 0.00,
+                balanceUSD: 0.00,
+                status: 'FROZEN',
+                kycLevel: 'TIER_0',
+                dailyLimit: 50000,
+                devices: [
+                    { name: 'Xiaomi Redmi Note 13', os: 'Android 13', ip: '185.190.140.2', lastActive: 'منذ 3 أيام', isCurrent: false }
+                ]
+            },
+            {
+                id: 'USR-78213',
+                fullName: 'بلقيس حميد سلطان المخلافي',
+                phone: '770654321',
+                accountNo: 'ACC-992107',
+                balanceYER: 89000.00,
+                balanceSAR: 500.00,
+                balanceUSD: 120.00,
+                status: 'ACTIVE',
+                kycLevel: 'TIER_1',
+                dailyLimit: 1500000,
+                devices: [
+                    { name: 'Honor Magic 6 Pro', os: 'Android 14', ip: '82.114.162.15', lastActive: 'منذ 5 ساعات', isCurrent: true }
+                ]
+            }
+        ];
+
+        let kycRequests = [
+            {
+                id: 'KYC-2026-091',
+                userId: 'USR-78214',
+                applicantName: 'هشام فضل يحيى الارياني',
+                phone: '775998877',
+                docType: 'البطاقة الشخصية الذكية',
+                docNumber: '01010098273',
+                submissionDate: '2026-10-14 18:40',
+                status: 'PENDING',
+                confidenceScore: '97.8% مطابقة حيوية بالذكاء الاصطناعي',
+                rejectionReason: null
+            },
+            {
+                id: 'KYC-2026-092',
+                userId: 'USR-78215',
+                applicantName: 'ريم عبدالرحمن محمد باوزير',
+                phone: '735112233',
+                docType: 'جواز سفر إلكتروني',
+                docNumber: 'P0982314',
+                submissionDate: '2026-10-14 20:15',
+                status: 'PENDING',
+                confidenceScore: '99.1% مطابقة أصلية ICAO',
+                rejectionReason: null
+            },
+            {
+                id: 'KYC-2026-088',
+                userId: 'USR-78209',
+                applicantName: 'سامي منصور عبده الحرازي',
+                phone: '712334455',
+                docType: 'بطاقة شخصية قديمة',
+                docNumber: '99812401',
+                submissionDate: '2026-10-13 12:00',
+                status: 'REJECTED',
+                confidenceScore: 'فشل الفحص الآلي',
+                rejectionReason: 'صورة الهوية غير واضحة وبها انعكاس ضوئي'
+            }
+        ];
+
+        let apiKeysList = [
+            {
+                id: 'API-KEY-001',
+                platformName: 'منصة شحن ببجي وفري فاير (Al-Gamer Store)',
+                serviceType: 'شحن ألعاب وبطاقات رقمية (PUBG, FreeFire)',
+                publicKey: 'ak_live_gamers_78912401823',
+                secretKey: 'sk_live_sec_99182371902837192',
+                environment: 'إنتاج حقيقي (Live Production)',
+                monthlyRequests: '34,820 طلب',
+                status: 'ACTIVE',
+                createdAt: '2026-09-01'
+            },
+            {
+                id: 'API-KEY-002',
+                platformName: 'بوابة سداد يمن موبايل وسبأفون (تليكوم كونكت)',
+                serviceType: 'شحن رصيد وباقات اتصالات',
+                publicKey: 'ak_live_telecom_44810293810',
+                secretKey: 'sk_live_sec_11827364519283746',
+                environment: 'إنتاج حقيقي (Live Production)',
+                monthlyRequests: '112,500 طلب',
+                status: 'ACTIVE',
+                createdAt: '2026-08-15'
+            },
+            {
+                id: 'API-KEY-003',
+                platformName: 'متجر سبأ للتجارة الإلكترونية (Saba B2B)',
+                serviceType: 'بوابة دفع إلكتروني للمتاجر',
+                publicKey: 'ak_test_sandbox_55819203918',
+                secretKey: 'sk_test_sec_33918274619283745',
+                environment: 'بيئة اختبار (Sandbox)',
+                monthlyRequests: '1,240 طلب',
+                status: 'ACTIVE',
+                createdAt: '2026-10-05'
+            }
+        ];
+
+        let deviceSessions = [
+            {
+                sessionId: 'SES-001',
+                userName: 'محمد النهمي (777123456)',
+                deviceName: 'Samsung Galaxy S24 Ultra (SM-S928B)',
+                osVersion: 'Android 14 / OneUI 6.1',
+                ipAddress: '185.190.142.12 (صنعاء، اليمن)',
+                lastActive: 'الآن (نشط)',
+                risk: 'آمن وموثوق'
+            },
+            {
+                sessionId: 'SES-002',
+                userName: 'محمد النهمي (777123456)',
+                deviceName: 'iPad Pro 12.9 (M2 Chip)',
+                osVersion: 'iPadOS 17.5',
+                ipAddress: '185.190.142.12 (صنعاء)',
+                lastActive: 'منذ ساعتين',
+                risk: 'آمن'
+            },
+            {
+                sessionId: 'SES-003',
+                userName: 'أحمد الوصابي (733456789)',
+                deviceName: 'iPhone 15 Pro Max',
+                osVersion: 'iOS 17.6',
+                ipAddress: '82.114.160.8 (عدن، اليمن)',
+                lastActive: 'منذ 20 دقيقة',
+                risk: 'آمن'
+            }
+        ];
+
+        let bannersList = [
+            {
+                id: 'BNR-01',
+                title: 'عروض الحوالات السريعة',
+                message: 'حوّل أموالك بخصم 50% على عمولات التحويل طوال شهر أكتوبر!',
+                type: 'PROMO',
+                active: true
+            },
+            {
+                id: 'BNR-02',
+                title: 'أمان الحساب المالي',
+                message: 'لا تشارك رمز التحقق السري (OTP) مع أي شخص حتى وإن ادعى أنه من خدمة العملاء.',
+                type: 'SECURITY',
+                active: true
+            }
+        ];
+
+        let transactionsList = [
+            {
+                id: 'TX-998241',
+                type: 'تحويل مالي بين المحافظ',
+                amount: '50,000 ر.ي',
+                sender: 'محمد النهمي (777123456)',
+                receiver: 'أحمد الوصابي (733456789)',
+                fee: '750 ر.ي',
+                time: 'اليوم 10:14 ص',
+                status: 'مكتملة ومستلمة'
+            },
+            {
+                id: 'TX-998240',
+                type: 'شحن ألعاب (PUBG 660 UC)',
+                amount: '3,800 ر.ي',
+                sender: 'أحمد الوصابي (733456789)',
+                receiver: 'منصة شحن الألعاب API',
+                fee: '0 ر.ي',
+                time: 'اليوم 09:30 ص',
+                status: 'شحن فوري ناجح'
+            },
+            {
+                id: 'TX-998239',
+                type: 'استلام حوالة خارجية',
+                amount: '1,500 ر.س',
+                sender: 'عبدالله السعدي (الرياض، KSA)',
+                receiver: 'محمد النهمي (777123456)',
+                fee: '0 ر.س',
+                time: 'أمس 08:22 م',
+                status: 'مستلمة نقداً'
+            }
+        ];
+
+        const branchesList = [
+            { name: 'الفرع الرئيسي - صنعاء', city: 'صنعاء', address: 'شارع الزبيري - تقاطع حدة', phone: '8000008', hours: '8:00 ص - 10:00 م', status: 'يعمل حالياً' },
+            { name: 'فرع عدن - الشيخ عثمان', city: 'عدن', address: 'شارع الشهيد مدرم', phone: '8000008', hours: '8:00 ص - 9:30 م', status: 'يعمل حالياً' },
+            { name: 'فرع تعز - شارع جمال', city: 'تعز', address: 'وسط المدينة - بجوار البنك المركزي', phone: '8000008', hours: '8:30 ص - 9:00 م', status: 'يعمل حالياً' },
+            { name: 'فرع المكلا - حضرموت', city: 'المكلا', address: 'الشارع العام - حي السلام', phone: '8000008', hours: '8:00 ص - 9:00 م', status: 'يعمل حالياً' }
+        ];
+
+        // 2. SUPABASE SYNC LOGIC
+        async function uploadJsonToSupabase(filename, data) {
+            try {
+                const t0 = performance.now();
+                const res = await fetch(`${SUPABASE_CONFIG.url}/storage/v1/object/${SUPABASE_CONFIG.bucket}/${filename}`, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': SUPABASE_CONFIG.secretKey,
+                        'Authorization': `Bearer ${SUPABASE_CONFIG.secretKey}`,
+                        'Content-Type': 'application/json',
+                        'x-upsert': 'true'
+                    },
+                    body: JSON.stringify(data)
+                });
+                const t1 = performance.now();
+                document.getElementById('supaLatencyBadge').innerText = Math.round(t1 - t0) + 'ms';
+                return res.ok;
+            } catch (e) {
+                console.warn('Supabase offline sync:', e);
+                return false;
+            }
+        }
+
+        async function syncAllSupabaseData() {
+            showToastMessage('جاري مزامنة وترحيل كافة التعديلات إلى سيرفر Supabase...');
+            await Promise.all([
+                uploadJsonToSupabase('users_data.json', { users: usersData, updated_at: new Date().toISOString() }),
+                uploadJsonToSupabase('kyc_requests.json', { requests: kycRequests, updated_at: new Date().toISOString() }),
+                uploadJsonToSupabase('devices.json', { activeSessions: deviceSessions, updated_at: new Date().toISOString() }),
+                uploadJsonToSupabase('app_banners.json', { banners: bannersList, updated_at: new Date().toISOString() }),
+                uploadJsonToSupabase('transactions.json', { transactions: transactionsList, updated_at: new Date().toISOString() })
+            ]);
+            showToastMessage('تمت المزامنة بنجاح وحفظ كافة التعديلات في قواعد البيانات السحابية!');
+        }
+
+        // 3. THEME TOGGLE (WHITE / BLACK)
+        function toggleThemeMode() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('wallet_admin_theme', newTheme);
+
+            const btnText = document.getElementById('themeToggleText');
+            const icon = document.getElementById('themeIcon');
+            if (newTheme === 'dark') {
+                btnText.innerText = 'الوضع النهاري (أبيض)';
+                icon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+            } else {
+                btnText.innerText = 'الوضع الداكن (أسود)';
+                icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+            }
+        }
+
+        // 4. NAVIGATION TABS
+        const sectionTitles = {
+            'tab-overview': { title: 'لوحة القيادة والمؤشرات العامة', desc: 'متابعة أرصدة السيولة وحركة المعاملات المتزامنة لحظياً عبر السحابة' },
+            'tab-users': { title: 'إدارة حسابات العملاء والتحكم الشامل بالمحفظة', desc: 'إدارة الأرصدة، السقوف المالية، الهواتف، وإدارة الأجهزة لكل مستخدم' },
+            'tab-kyc': { title: 'طلبات التوثيق والتحقق من الهوية (KYC)', desc: 'مراجعة وقبول أو رفض طلبات ترقية الحسابات مع إشعار العميل بالسبب' },
+            'tab-devices': { title: 'مراقبة الجلسات والأجهزة المصرحة', desc: 'إدارة أجهزة العملاء، طرد الجلسات المشبوهة، وقفل الأجهزة المخترقة' },
+            'tab-api-integrations': { title: 'بوابة الـ APIs وشحن التطبيقات والألعاب', desc: 'توليد مفاتيح الربط البرمجي للمتاجر، شحن PUBG و FreeFire والاتصالات' },
+            'tab-rates': { title: 'أسعار الصرف الرسمية والعمولات المباشرة', desc: 'تعديل أسعار بيع وشراء العملات والعمولات وتحديثها لحظياً في التطبيقات' },
+            'tab-banners': { title: 'إعلانات وبنرات المحفظة', desc: 'نشر وتعديل التنبيهات والعروض الترويجية داخل تطبيقات الموبايل' },
+            'tab-transactions': { title: 'سجل العمليات والتحويلات المباشرة', desc: 'كشف الحركات المالية وإمكانية محاكاة وضخ المعاملات في السحابة' },
+            'tab-branches': { title: 'دليل الفروع ومراكز الخدمة المصرفية', desc: 'عناوين ومراكز الصرافة وخدمة العملاء المعتمدة' }
+        };
+
+        function switchNavTab(tabId) {
+            document.querySelectorAll('.tab-section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            
+            const targetSection = document.getElementById(tabId);
+            if (targetSection) targetSection.classList.add('active');
+
+            const activeBtn = Array.from(document.querySelectorAll('.nav-item')).find(b => { const oc = b.getAttribute('onclick'); return oc && oc.includes(tabId); });
+            if (activeBtn) activeBtn.classList.add('active');
+
+            if (sectionTitles[tabId]) {
+                document.getElementById('currentSectionTitle').innerText = sectionTitles[tabId].title;
+                document.getElementById('currentSectionDesc').innerText = sectionTitles[tabId].desc;
+            }
+        }
+
+        // 5. RENDER FUNCTIONS
+        function renderUsersTable() {
+            const tbody = document.getElementById('usersMasterTableBody');
+            tbody.innerHTML = '';
+
+            usersData.forEach(u => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>
+                        <div style="font-weight:700; color:var(--text-main);">${u.fullName}</div>
+                        <div style="font-size:0.75rem; color:var(--text-dim); font-family:monospace;">${u.id}</div>
+                    </td>
+                    <td style="font-family:monospace; direction:ltr; text-align:right; font-weight:700;">${u.phone}</td>
+                    <td style="font-family:monospace; color:var(--primary); font-weight:700;">${u.accountNo}</td>
+                    <td>
+                        <div style="font-weight:700; color:var(--success);">${Number(u.balanceYER).toLocaleString()} ر.ي</div>
+                        <div style="font-size:0.75rem; color:var(--text-dim);">${u.balanceSAR} ر.س | ${u.balanceUSD} $</div>
+                    </td>
+                    <td><span class="badge-status ${u.kycLevel === 'TIER_2' || u.kycLevel === 'VIP' ? 'active' : 'pending'}">${u.kycLevel}</span></td>
+                    <td><span class="badge-status ${u.status === 'ACTIVE' ? 'active' : 'frozen'}">${u.status === 'ACTIVE' ? 'نشط ومصرح' : 'مجمد وموقوف'}</span></td>
+                    <td>
+                        <button class="btn-corporate btn-corporate-outline" style="padding:4px 8px; font-size:0.75rem;" onclick="openUserDevicesModal('${u.id}')">
+                            <svg class="icon-svg" style="width:14px; height:14px;" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                            <span>${u.devices ? u.devices.length : 1} أجهزة</span>
+                        </button>
+                    </td>
+                    <td>
+                        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                            <button class="btn-corporate btn-corporate-primary" style="padding:4px 10px; font-size:0.78rem;" onclick="openComprehensiveWalletControl('${u.id}')">
+                                <svg class="icon-svg" style="width:14px; height:14px;" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                                <span>تحكم المحفظة</span>
+                            </button>
+                            ${u.status === 'ACTIVE' 
+                                ? `<button class="btn-corporate btn-corporate-danger" style="padding:4px 8px; font-size:0.78rem;" onclick="toggleUserStatus('${u.id}')">تجميد</button>`
+                                : `<button class="btn-corporate btn-corporate-success" style="padding:4px 8px; font-size:0.78rem;" onclick="toggleUserStatus('${u.id}')">تنشيط</button>`
+                            }
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('badgeUsersCount').innerText = usersData.length;
+            document.getElementById('statOverviewUsers').innerText = usersData.length;
+        }
+
+        function renderKycTable() {
+            const tbody = document.getElementById('kycMasterTableBody');
+            tbody.innerHTML = '';
+            let pendingCount = 0;
+
+            kycRequests.forEach(k => {
+                if (k.status === 'PENDING') pendingCount++;
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="font-family:monospace; font-weight:700; color:var(--primary);">${k.id}</td>
+                    <td style="font-weight:700;">${k.applicantName}</td>
+                    <td style="font-family:monospace; direction:ltr; text-align:right;">${k.phone}</td>
+                    <td>${k.docType}</td>
+                    <td style="font-family:monospace;">${k.docNumber}</td>
+                    <td style="font-size:0.8rem; color:var(--text-muted);">${k.submissionDate}</td>
+                    <td><span style="color:var(--success); font-weight:700; font-size:0.8rem;">${k.confidenceScore}</span></td>
+                    <td>
+                        <span class="badge-status ${k.status === 'APPROVED' ? 'active' : (k.status === 'REJECTED' ? 'frozen' : 'pending')}">
+                            ${k.status === 'APPROVED' ? 'معتمد وموثق' : (k.status === 'REJECTED' ? 'مرفوض' : 'قيد المراجعة')}
+                        </span>
+                        ${k.rejectionReason ? `<div style="font-size:0.72rem; color:var(--danger); margin-top:4px;">السبب: ${k.rejectionReason}</div>` : ''}
+                    </td>
+                    <td>
+                        ${k.status === 'PENDING' ? `
+                            <div style="display:flex; gap:6px;">
+                                <button class="btn-corporate btn-corporate-success" style="padding:4px 10px; font-size:0.78rem;" onclick="approveKyc('${k.id}')">قبول</button>
+                                <button class="btn-corporate btn-corporate-danger" style="padding:4px 10px; font-size:0.78rem;" onclick="openRejectKycModal('${k.id}')">رفض مع السبب</button>
+                            </div>
+                        ` : `<span style="color:var(--text-dim); font-size:0.78rem;">تم اتخاذ القرار</span>`}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('badgeKycCount').innerText = pendingCount;
+            document.getElementById('statOverviewKyc').innerText = pendingCount;
+        }
+
+        function renderDevicesTable() {
+            const tbody = document.getElementById('devicesMasterTableBody');
+            tbody.innerHTML = '';
+
+            deviceSessions.forEach(d => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="font-family:monospace; color:var(--primary); font-weight:700;">${d.sessionId}</td>
+                    <td style="font-weight:700;">${d.userName}</td>
+                    <td>${d.deviceName}</td>
+                    <td>${d.osVersion}</td>
+                    <td style="font-size:0.8rem; color:var(--text-muted); font-family:monospace;">${d.ipAddress}</td>
+                    <td style="font-size:0.8rem; color:var(--success); font-weight:700;">${d.lastActive}</td>
+                    <td><span class="badge-status active">${d.risk}</span></td>
+                    <td>
+                        <button class="btn-corporate btn-corporate-danger" style="padding:4px 10px; font-size:0.78rem;" onclick="terminateDeviceSession('${d.sessionId}')">إنهاء الجلسة</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('badgeDevicesCount').innerText = deviceSessions.length;
+        }
+
+        function renderApiKeysTable() {
+            const tbody = document.getElementById('apiKeysTableBody');
+            tbody.innerHTML = '';
+
+            apiKeysList.forEach(a => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="font-weight:700; color:var(--text-main);">${a.platformName}</td>
+                    <td><span style="font-size:0.8rem; color:var(--primary); font-weight:700;">${a.serviceType}</span></td>
+                    <td style="font-family:monospace; color:var(--text-muted); font-size:0.8rem;">
+                        ${a.publicKey}
+                        <button class="btn-corporate btn-corporate-outline" style="padding:2px 6px; font-size:0.7rem; margin-right:4px;" onclick="copyToClipboard('${a.publicKey}')">نسخ</button>
+                    </td>
+                    <td><span class="badge-status active">${a.environment}</span></td>
+                    <td style="font-family:monospace; font-weight:700;">${a.monthlyRequests}</td>
+                    <td><span class="badge-status active">${a.status}</span></td>
+                    <td style="font-size:0.8rem; color:var(--text-dim);">${a.createdAt}</td>
+                    <td>
+                        <div style="display:flex; gap:6px;">
+                            <button class="btn-corporate btn-corporate-outline" style="padding:4px 8px; font-size:0.75rem;" onclick="showSecretKey('${a.secretKey}')">عرض السر</button>
+                            <button class="btn-corporate btn-corporate-danger" style="padding:4px 8px; font-size:0.75rem;" onclick="revokeApiKey('${a.id}')">إلغاء</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('statOverviewApis').innerText = apiKeysList.length;
+        }
+
+        function renderTransactionsTable() {
+            const overviewBody = document.getElementById('overviewTxTableBody');
+            const masterBody = document.getElementById('transactionsMasterTableBody');
+            overviewBody.innerHTML = '';
+            masterBody.innerHTML = '';
+
+            transactionsList.forEach(t => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="font-family:monospace; color:var(--primary); font-weight:700;">${t.id}</td>
+                    <td style="font-weight:700;">${t.type}</td>
+                    <td style="font-weight:800; color:var(--success);">${t.amount}</td>
+                    <td style="font-size:0.84rem;">${t.sender}</td>
+                    <td style="font-size:0.84rem;">${t.receiver}</td>
+                    <td style="font-size:0.8rem; color:var(--text-muted);">${t.fee}</td>
+                    <td style="font-size:0.8rem; color:var(--text-dim);">${t.time}</td>
+                    <td><span class="badge-status active">${t.status}</span></td>
+                `;
+                masterBody.appendChild(tr);
+                overviewBody.appendChild(tr.cloneNode(true));
+            });
+
+            document.getElementById('badgeTxCount').innerText = transactionsList.length;
+        }
+
+        function renderBannersTable() {
+            const tbody = document.getElementById('bannersMasterTableBody');
+            tbody.innerHTML = '';
+
+            bannersList.forEach(b => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="font-family:monospace; color:var(--primary); font-weight:700;">${b.id}</td>
+                    <td style="font-weight:700;">${b.title}</td>
+                    <td>${b.message}</td>
+                    <td><span class="badge-status pending">${b.type}</span></td>
+                    <td><span class="badge-status active">نشط في التطبيق</span></td>
+                    <td>
+                        <button class="btn-corporate btn-corporate-danger" style="padding:4px 8px; font-size:0.75rem;" onclick="deleteBanner('${b.id}')">حذف</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderBranchesTable() {
+            const tbody = document.getElementById('branchesMasterTableBody');
+            tbody.innerHTML = '';
+
+            branchesList.forEach(b => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="font-weight:700;">${b.name}</td>
+                    <td>${b.city}</td>
+                    <td style="color:var(--text-muted); font-size:0.82rem;">${b.address}</td>
+                    <td style="font-family:monospace; color:var(--primary); font-weight:700;">${b.phone}</td>
+                    <td style="font-size:0.82rem;">${b.hours}</td>
+                    <td><span class="badge-status active">${b.status}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // 6. PER-USER DEVICE MANAGEMENT HANDLER (NEW!)
+        function openUserDevicesModal(userId) {
+            const user = usersData.find(u => u.id === userId);
+            if (!user) return;
+
+            document.getElementById('modalUserDeviceTargetName').innerText = user.fullName + ' (' + user.phone + ')';
+            const tbody = document.getElementById('userDevicesListBody');
+            tbody.innerHTML = '';
+
+            if (user.devices && user.devices.length > 0) {
+                user.devices.forEach((d, idx) => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td style="font-weight:700;">${d.name}</td>
+                        <td>${d.os}</td>
+                        <td style="font-family:monospace; font-size:0.78rem;">${d.ip}</td>
+                        <td style="font-size:0.78rem;">${d.lastActive}</td>
+                        <td><span class="badge-status active">${d.isCurrent ? 'الجهاز الحالي' : 'مصرح به'}</span></td>
+                        <td>
+                            <button class="btn-corporate btn-corporate-danger" style="padding:2px 8px; font-size:0.72rem;" onclick="revokeSingleUserDevice('${user.id}', ${idx})">طرد الجهاز</button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } else {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:var(--text-muted);">لا توجد أجهزة إضافية مسجلة</td></tr>';
+            }
+
+            openModal('userDevicesModal');
+        }
+
+        function revokeSingleUserDevice(userId, deviceIdx) {
+            const user = usersData.find(u => u.id === userId);
+            if (user && user.devices) {
+                user.devices.splice(deviceIdx, 1);
+                openUserDevicesModal(userId);
+                renderUsersTable();
+                uploadJsonToSupabase('users_data.json', { users: usersData, updated_at: new Date().toISOString() });
+                showToastMessage('تم طرد الجهاز وإنهاء الجلسة فوراً من السحابة!');
+            }
+        }
+
+        function revokeAllUserDevices() {
+            showToastMessage('تم إنهاء جميع جلسات العميل وحظر تسجيل الدخول من الأجهزة السابقة!');
+            closeModal('userDevicesModal');
+        }
+
+        function toggleSingleDevicePolicy() {
+            showToastMessage('تم تفعيل سياسة الجهاز الواحد للحساب: لن يتمكن العميل من فتح حسابه إلا من هاتفه الأساسي.');
+        }
+
+        // 7. COMPREHENSIVE WALLET CONTROL HANDLER (NEW!)
+        function openComprehensiveWalletControl(userId) {
+            const user = usersData.find(u => u.id === userId);
+            if (!user) return;
+
+            document.getElementById('ctrlUserId').value = user.id;
+            document.getElementById('controlUserHeader').innerText = user.fullName;
+            document.getElementById('ctrlFullName').value = user.fullName;
+            document.getElementById('ctrlPhone').value = user.phone;
+            document.getElementById('ctrlBalanceYer').value = user.balanceYER;
+            document.getElementById('ctrlBalanceSar').value = user.balanceSAR;
+            document.getElementById('ctrlBalanceUsd').value = user.balanceUSD;
+            document.getElementById('ctrlDailyLimit').value = user.dailyLimit || 2000000;
+            document.getElementById('ctrlKycLevel').value = user.kycLevel;
+
+            openModal('walletControlModal');
+        }
+
+        function saveComprehensiveWalletControl() {
+            const id = document.getElementById('ctrlUserId').value;
+            const user = usersData.find(u => u.id === id);
+            if (user) {
+                user.fullName = document.getElementById('ctrlFullName').value;
+                user.phone = document.getElementById('ctrlPhone').value;
+                user.balanceYER = parseFloat(document.getElementById('ctrlBalanceYer').value) || 0;
+                user.balanceSAR = parseFloat(document.getElementById('ctrlBalanceSar').value) || 0;
+                user.balanceUSD = parseFloat(document.getElementById('ctrlBalanceUsd').value) || 0;
+                user.dailyLimit = parseFloat(document.getElementById('ctrlDailyLimit').value) || 2000000;
+                user.kycLevel = document.getElementById('ctrlKycLevel').value;
+
+                renderUsersTable();
+                closeModal('walletControlModal');
+                uploadJsonToSupabase('users_data.json', { users: usersData, updated_at: new Date().toISOString() });
+                showToastMessage('تم حفظ وترحيل كامل إعدادات المحفظة والأرصدة إلى قواعد البيانات بنجاح!');
+            }
+        }
+
+        // 8. API KEY GENERATION HANDLER (NEW!)
+        function openGenerateApiKeyModal() {
+            document.getElementById('newApiPlatformName').value = '';
+            document.getElementById('newApiWebhook').value = '';
+            document.getElementById('newApiIpWhitelist').value = '';
+            openModal('generateApiKeyModal');
+        }
+
+        function submitGenerateApiKey() {
+            const name = document.getElementById('newApiPlatformName').value.trim();
+            const service = document.getElementById('newApiServiceType').value;
+            const env = document.getElementById('newApiEnv').value;
+
+            if (!name) {
+                alert('يرجى كتابة اسم المنصة أو الشريك');
+                return;
+            }
+
+            const randToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+            const newKey = {
+                id: 'API-KEY-' + (apiKeysList.length + 1).toString().padStart(3, '0'),
+                platformName: name,
+                serviceType: service,
+                publicKey: 'ak_' + (env.includes('Sandbox') ? 'test_' : 'live_') + randToken.substring(0, 16),
+                secretKey: 'sk_' + (env.includes('Sandbox') ? 'test_sec_' : 'live_sec_') + randToken,
+                environment: env,
+                monthlyRequests: '0 طلب',
+                status: 'ACTIVE',
+                createdAt: new Date().toISOString().split('T')[0]
+            };
+
+            apiKeysList.unshift(newKey);
+            renderApiKeysTable();
+            closeModal('generateApiKeyModal');
+            showToastMessage('تم توليد مفتاح الـ API بنجاح! جاهز الآن لربط خدمات شحن الألعاب والتطبيقات.');
+        }
+
+        function showSecretKey(sec) {
+            alert('المفتاح السري (Secret Key):\n\n' + sec + '\n\nتحذير: لا تشارك هذا المفتاح علناً.');
+        }
+
+        function revokeApiKey(id) {
+            apiKeysList = apiKeysList.filter(a => a.id !== id);
+            renderApiKeysTable();
+            showToastMessage('تم إلغاء وتعطيل مفتاح الـ API فوراً.');
+        }
+
+        // 9. GENERAL ACTIONS & KYC
+        function toggleUserStatus(userId) {
+            const user = usersData.find(u => u.id === userId);
+            if (user) {
+                user.status = user.status === 'ACTIVE' ? 'FROZEN' : 'ACTIVE';
+                renderUsersTable();
+                uploadJsonToSupabase('users_data.json', { users: usersData, updated_at: new Date().toISOString() });
+                showToastMessage(user.status === 'FROZEN' ? 'تم تجميد المحفظة وإيقاف المعاملات فوراً.' : 'تم تنشيط المحفظة بنجاح.');
+            }
+        }
+
+        function openNewUserModal() {
+            const newPhone = '77' + Math.floor(1000000 + Math.random() * 9000000);
+            const newAcc = 'ACC-' + Math.floor(100000 + Math.random() * 900000);
+            const newUser = {
+                id: 'USR-' + Math.floor(78220 + Math.random() * 100),
+                fullName: 'عميل جديد ' + newAcc,
+                phone: newPhone,
+                accountNo: newAcc,
+                balanceYER: 50000,
+                balanceSAR: 200,
+                balanceUSD: 100,
+                status: 'ACTIVE',
+                kycLevel: 'TIER_1',
+                dailyLimit: 2000000,
+                devices: [
+                    { name: 'هاتف ذكي Android', os: 'Android 14', ip: '185.190.142.10', lastActive: 'الآن', isCurrent: true }
+                ]
+            };
+            usersData.unshift(newUser);
+            renderUsersTable();
+            uploadJsonToSupabase('users_data.json', { users: usersData, updated_at: new Date().toISOString() });
+            showToastMessage('تم فتح وتفعيل حساب عميل جديد بنجاح في قواعد البيانات!');
+        }
+
+        function approveKyc(reqId) {
+            const req = kycRequests.find(k => k.id === reqId);
+            if (req) {
+                req.status = 'APPROVED';
+                renderKycTable();
+                uploadJsonToSupabase('kyc_requests.json', { requests: kycRequests, updated_at: new Date().toISOString() });
+                showToastMessage('تم اعتماد وتوثيق الهوية للعميل بنجاح!');
+            }
+        }
+
+        function openRejectKycModal(reqId) {
+            const req = kycRequests.find(k => k.id === reqId);
+            if (!req) return;
+            document.getElementById('rejectKycTargetId').value = req.id;
+            document.getElementById('rejectApplicantNameField').value = req.applicantName;
+            document.getElementById('rejectReasonField').value = '';
+            openModal('rejectKycDialog');
+        }
+
+        function confirmKycRejection() {
+            const id = document.getElementById('rejectKycTargetId').value;
+            const reason = document.getElementById('rejectReasonField').value.trim();
+            const req = kycRequests.find(k => k.id === id);
+            if (req) {
+                req.status = 'REJECTED';
+                req.rejectionReason = reason || 'لم تستوفِ الوثيقة معايير الوضوح والمطابقة البيومترية';
+                renderKycTable();
+                closeModal('rejectKycDialog');
+                uploadJsonToSupabase('kyc_requests.json', { requests: kycRequests, updated_at: new Date().toISOString() });
+                showToastMessage('تم رفض الطلب وتسجيل سبب الرفض وإشعاره للعميل.');
+            }
+        }
+
+        function terminateDeviceSession(sessionId) {
+            deviceSessions = deviceSessions.filter(d => d.sessionId !== sessionId);
+            renderDevicesTable();
+            uploadJsonToSupabase('devices.json', { activeSessions: deviceSessions, updated_at: new Date().toISOString() });
+            showToastMessage('تم إنهاء جلسة الجهاز وحظر التوكن السحابي!');
+        }
+
+        function terminateAllSuspiciousDevices() {
+            deviceSessions = deviceSessions.slice(0, 1);
+            renderDevicesTable();
+            uploadJsonToSupabase('devices.json', { activeSessions: deviceSessions, updated_at: new Date().toISOString() });
+            showToastMessage('تم طرد كافة الجلسات وحصر الحساب على الجهاز الرئيسي.');
+        }
+
+        function savePlatformRates() {
+            const payload = {
+                rates: {
+                    SAR: { buy: parseFloat(document.getElementById('rateSarBuy').value), sell: parseFloat(document.getElementById('rateSarSell').value) },
+                    USD: { buy: parseFloat(document.getElementById('rateUsdBuy').value), sell: parseFloat(document.getElementById('rateUsdSell').value) },
+                    SAR_ADEN: { buy: parseFloat(document.getElementById('rateSarAdenBuy').value), sell: parseFloat(document.getElementById('rateSarAdenSell').value) },
+                    USD_ADEN: { buy: parseFloat(document.getElementById('rateUsdAdenBuy').value), sell: parseFloat(document.getElementById('rateUsdAdenSell').value) },
+                    EUR: { buy: 580.00, sell: 586.00 }
+                },
+                transfer_fee_percent: parseFloat(document.getElementById('feePercent').value),
+                min_transfer_fee: parseFloat(document.getElementById('minFee').value),
+                updated_at: new Date().toISOString()
+            };
+
+            uploadJsonToSupabase('exchange_rates.json', payload);
+            showToastMessage('تم نشر وتثبيت أسعار الصرف الرسمية فوراً في قواعد البيانات ولجميع التطبيقات!');
+        }
+
+        function openAddBannerModal() {
+            document.getElementById('newBnrTitle').value = '';
+            document.getElementById('newBnrMsg').value = '';
+            openModal('addBannerDialog');
+        }
+
+        function confirmAddBanner() {
+            const title = document.getElementById('newBnrTitle').value.trim();
+            const msg = document.getElementById('newBnrMsg').value.trim();
+            const type = document.getElementById('newBnrType').value;
+
+            if (!title || !msg) {
+                alert('يرجى إدخال العنوان والنص');
+                return;
+            }
+
+            bannersList.unshift({
+                id: 'BNR-0' + (bannersList.length + 1),
+                title: title,
+                message: msg,
+                type: type,
+                active: true
+            });
+
+            renderBannersTable();
+            closeModal('addBannerDialog');
+            uploadJsonToSupabase('app_banners.json', { banners: bannersList, updated_at: new Date().toISOString() });
+            showToastMessage('تم نشر الإعلان في التطبيق وتحديث قواعد البيانات!');
+        }
+
+        function deleteBanner(id) {
+            bannersList = bannersList.filter(b => b.id !== id);
+            renderBannersTable();
+            uploadJsonToSupabase('app_banners.json', { banners: bannersList, updated_at: new Date().toISOString() });
+            showToastMessage('تم حذف الإعلان من التطبيق!');
+        }
+
+        function openSimulateTxModal() {
+            openModal('simulateTxDialog');
+        }
+
+        function confirmSimulateTx() {
+            const type = document.getElementById('simTxType').value;
+            const amount = Number(document.getElementById('simTxAmount').value).toLocaleString();
+            const curr = document.getElementById('simTxCurrency').value;
+            const sender = document.getElementById('simTxSender').value;
+            const receiver = document.getElementById('simTxReceiver').value;
+
+            const newTx = {
+                id: "TX-99" + Math.floor(1830 + Math.random() * 1000),
+                type: type,
+                amount: amount + ' ' + curr,
+                sender: sender,
+                receiver: receiver,
+                fee: '200 ر.ي',
+                time: "الآن",
+                status: "مكتملة ومستلمة"
+            };
+
+            transactionsList.unshift(newTx);
+            closeModal('simulateTxDialog');
+            renderTransactionsTable();
+            uploadJsonToSupabase('transactions.json', { transactions: transactionsList, updated_at: new Date().toISOString() });
+            showToastMessage('تم تنفيذ وضخ المعاملة (' + type + ') بنجاح في السحابة!');
+        }
+
+        function applyUsersFilter() {
+            const query = document.getElementById('userFilterInput').value.toLowerCase();
+            const filter = document.getElementById('userFilterStatus').value;
+            const rows = document.querySelectorAll('#usersMasterTableBody tr');
+
+            rows.forEach(r => {
+                const text = r.innerText.toLowerCase();
+                const matchesQuery = text.includes(query);
+                const matchesFilter = (filter === 'ALL') || (filter === 'ACTIVE' && text.includes('نشط')) || (filter === 'FROZEN' && text.includes('مجمد'));
+                r.style.display = (matchesQuery && matchesFilter) ? '' : 'none';
+            });
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text);
+            showToastMessage('تم نسخ المفتاح إلى الحافظة: ' + text);
+        }
+
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        function showToastMessage(msg) {
+            const toast = document.getElementById('globalToast');
+            document.getElementById('globalToastMsg').innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 4000);
+        }
+
+        // Initialize on Load
+        window.onload = function() {
+            const savedTheme = localStorage.getItem('wallet_admin_theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            if (savedTheme === 'dark') {
+                document.getElementById('themeToggleText').innerText = 'الوضع النهاري (أبيض)';
+                document.getElementById('themeIcon').innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+            }
+
+            renderUsersTable();
+            renderKycTable();
+            renderDevicesTable();
+            renderApiKeysTable();
+            renderTransactionsTable();
+            renderBannersTable();
+            renderBranchesTable();
+        };
+    </script>
+</body>
+</html>

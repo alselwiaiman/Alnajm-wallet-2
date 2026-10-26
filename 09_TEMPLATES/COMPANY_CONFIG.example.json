@@ -1,0 +1,21 @@
+{
+  "companyName": "Example Wallet",
+  "companyLegalName": "Example Company",
+  "logo": "assets/branding/logo.png",
+  "primaryColor": "#000000",
+  "secondaryColor": "#FFFFFF",
+  "supportedCurrencies": ["YER", "USD"],
+  "enabledFeatures": [
+    "wallet",
+    "transactions",
+    "send",
+    "receive",
+    "exchange",
+    "qr",
+    "notifications"
+  ],
+  "supportPhone": "",
+  "supportEmail": "",
+  "termsUrl": "",
+  "privacyUrl": ""
+}

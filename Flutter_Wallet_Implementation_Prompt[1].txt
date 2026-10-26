@@ -1,0 +1,224 @@
+Continue implementation from the CURRENT project state.
+
+IMPORTANT:
+Do NOT recreate the project.
+Do NOT replace the current architecture.
+Do NOT remove the existing core layers.
+Do NOT create another architecture.
+Do NOT leave placeholder README files.
+
+The current Project Inspection Report shows that the foundation is implemented, but the main wallet features are still Stub / Not built.
+
+Your task is to COMPLETE the existing project.
+
+CURRENT IMPLEMENTED FOUNDATION:
+- core/constants/
+- core/errors/
+- core/localization/
+- core/routing/
+- core/theme/
+- core/utils/
+- shared/widgets/
+- shared/presentation/
+
+CURRENT STUB FEATURES:
+- features/auth/
+- features/wallet/
+- features/transactions/
+- features/profile/
+
+BUILD ALL OF THEM NOW.
+
+PHASE 1 — AUTH
+Implement:
+- Demo Login screen
+- Demo authentication state
+- Login validation
+- Logout
+- Persistent demo session
+- Loading/error/success states
+
+PHASE 2 — DASHBOARD
+Implement a professional wallet dashboard containing:
+- User information
+- Wallet balance
+- Currency
+- Send
+- Receive
+- Deposit
+- Withdraw
+- Recent transactions
+- Quick actions
+- Profile/settings access
+
+PHASE 3 — WALLET
+Implement:
+- Wallet balance
+- Balance visibility toggle
+- Send Demo Money
+- Receive Demo Money
+- Deposit Demo
+- Withdraw Demo
+- Validation
+- Success/error states
+- Transaction creation for every successful operation
+
+Use a local/demo repository for now.
+Do NOT require a real backend.
+
+PHASE 4 — TRANSACTIONS
+Implement:
+- Transaction history
+- Transaction details
+- Search
+- Filter
+- Transaction type
+- Transaction status
+- Date
+- Amount
+- Sender/receiver
+- Empty state
+- Loading state
+- Error state
+
+PHASE 5 — PROFILE
+Implement:
+- Profile screen
+- User information
+- Edit profile
+- Settings
+- Language
+- Theme
+- Logout
+
+PHASE 6 — LOCALIZATION
+The application must support:
+- Arabic
+- English
+- RTL
+- LTR
+
+Make sure all newly created UI strings use the existing localization system.
+
+PHASE 7 — THEME
+Use the existing theme architecture.
+Support:
+- Light mode
+- Dark mode
+
+Do not create a second theme system.
+
+PHASE 8 — ROUTING
+Connect every implemented screen to the existing routing system.
+
+Every route in the project inspection report must lead to a real screen.
+
+No route should remain "Not built".
+
+PHASE 9 — DEMO DATA
+Create realistic local demo data.
+
+Include:
+- Demo user
+- Demo wallet
+- Demo transactions
+
+The demo wallet must behave realistically.
+
+Example:
+If the user sends 100:
+balance decreases by 100
+and a transaction is created.
+
+If the user receives 100:
+balance increases by 100
+and a transaction is created.
+
+Deposit increases balance.
+Withdraw decreases balance.
+
+Prevent transactions when balance is insufficient.
+
+PHASE 10 — ARCHITECTURE
+Respect the existing Layered Feature-Based architecture.
+
+Use the existing:
+Presentation
+Domain
+Data
+
+separation where appropriate.
+
+Do not bypass the architecture with all logic inside widgets.
+
+PHASE 11 — QUALITY
+Handle:
+- loading states
+- empty states
+- validation errors
+- exceptions
+- transaction failures
+- insufficient balance
+- invalid amounts
+
+Use the existing error hierarchy.
+
+PHASE 12 — RESPONSIVE UI
+The application must work correctly on:
+- Android phones
+- Android tablets
+- desktop/web-sized windows
+
+Avoid hard-coded screen sizes.
+
+PHASE 13 — VERIFICATION
+After implementation:
+
+1. Run flutter analyze
+2. Fix ALL errors
+3. Fix warnings where practical
+4. Run tests
+5. Build the application
+6. Verify every route
+7. Verify login
+8. Verify dashboard
+9. Verify wallet operations
+10. Verify transaction history
+11. Verify transaction details
+12. Verify search/filter
+13. Verify profile/settings
+14. Verify Arabic RTL
+15. Verify English LTR
+16. Verify light/dark themes
+
+Then run the Project Inspection Report again.
+
+TARGET RESULT:
+
+Route definitions       PASS
+Unknown route handling  PASS
+Demo Login              PASS
+Dashboard               PASS
+Wallet Balance          PASS
+Send Demo Money         PASS
+Receive Demo Money      PASS
+Deposit Demo            PASS
+Withdraw Demo           PASS
+Transaction History     PASS
+Transaction Details     PASS
+Search / Filter         PASS
+Profile                 PASS
+Settings                PASS
+
+Do not stop after creating files.
+
+Actually implement the features and verify that they work.
+
+At the end provide a concise implementation report containing:
+- files created
+- files modified
+- features implemented
+- tests performed
+- flutter analyze result
+- build result
+- remaining issues, if any
